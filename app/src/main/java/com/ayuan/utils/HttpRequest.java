@@ -1,6 +1,7 @@
 package com.ayuan.utils;
 
 import com.ayuan.vo.AllSensors_vo;
+import com.ayuan.vo.BusStation_vo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -263,14 +264,15 @@ public class HttpRequest {
 	 *
 	 * @return
 	 */
-	public static ArrayList<HashMap<String, Integer>> httpGetBusStationInfo(Integer BusStationId) {
+	public static ArrayList<BusStation_vo> httpGetBusStationInfo(int BusStationId) {
 		try {
 			JSONObject object = new JSONObject();
 			object.put("BusStationId", BusStationId);
+			httpSetting(GET_BUS_STATION_INFO, object.toString());
 			return JsonAnalysis.GetBusStationInfo(httpSetting(GET_BUS_STATION_INFO, object.toString()));
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;

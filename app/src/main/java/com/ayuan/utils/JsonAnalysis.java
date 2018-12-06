@@ -3,6 +3,7 @@ package com.ayuan.utils;
 import android.text.TextUtils;
 
 import com.ayuan.vo.AllSensors_vo;
+import com.ayuan.vo.BusStation_vo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -191,11 +192,9 @@ public class JsonAnalysis {
 	 *
 	 * @param json
 	 */
-	public static ArrayList<HashMap<String, Integer>> GetBusStationInfo(String json) {
-		ArrayList<HashMap<String, Integer>> hashMaps = new ArrayList<>();
-		HashMap<String, Integer> stringIntegerHashMap = null;
+	public static ArrayList<BusStation_vo> GetBusStationInfo(String json) {
+		ArrayList<BusStation_vo> busStation_vo = new ArrayList<BusStation_vo>();
 		try {
-			stringIntegerHashMap = new HashMap<String, Integer>();
 			JSONObject object = new JSONObject(json);
 			String serverinfo = object.getString("serverinfo");
 			JSONArray jsonArray = new JSONArray(serverinfo);
@@ -203,11 +202,10 @@ public class JsonAnalysis {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
 				int distance = jsonObject.getInt("Distance");
 				int busId = jsonObject.getInt("BusId");
-				stringIntegerHashMap.put("Distance", distance);
-				stringIntegerHashMap.put("BusId", busId);
-				hashMaps.add(stringIntegerHashMap);
+				BusStation_vo busStation = new BusStation_vo(busId, distance);
+				busStation_vo.add(busStation);
 			}
-			return hashMaps;
+			return busStation_vo;
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
