@@ -59,7 +59,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="道路环境"
-					android:textSize="23sp" />
+					android:textSize="20sp" />
 
 
 				<RelativeLayout
@@ -116,7 +116,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="距离1号站台距离"
-					android:textSize="23sp" />
+					android:textSize="20sp" />
 
 				<RelativeLayout
 					android:layout_width="wrap_content"
@@ -143,7 +143,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="距离1号站台距离"
-					android:textSize="23sp" />
+					android:textSize="20sp" />
 
 				<RelativeLayout
 					android:layout_width="wrap_content"

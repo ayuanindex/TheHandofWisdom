@@ -313,8 +313,10 @@ public class HttpRequest {
 		int code = httpURLConnection.getResponseCode();
 		if (code == 200) {
 			InputStream inputStream = httpURLConnection.getInputStream();
-			String json = StreamUtils.StreamToString(inputStream);
-			return json;
+			if (inputStream != null) {
+				String json = StreamUtils.StreamToString(inputStream);
+				return json;
+			}
 		}
 		return null;
 	}

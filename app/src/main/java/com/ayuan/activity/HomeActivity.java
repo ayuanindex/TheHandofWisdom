@@ -96,12 +96,6 @@ public class HomeActivity extends AppCompatActivity {
 					tv_co2.setText("CO2 : " + allSensors_vo.getCo2() + " ppm; ");
 				}
 			});
-		} else {
-			//TODO 弹出对话框是否需要继续加载，还是取消加载
-			//取消定时器
-			if (timer != null) {
-				timer.cancel();
-			}
 		}
 	}
 
@@ -110,7 +104,7 @@ public class HomeActivity extends AppCompatActivity {
 	 */
 	private void initRightData() {
 		final ArrayList<BusStation_vo> busStation_vo = HttpRequest.httpGetBusStationInfo(1);
-		if (!busStation_vo.isEmpty()) {
+		if (busStation_vo != null) {
 			runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
@@ -122,13 +116,9 @@ public class HomeActivity extends AppCompatActivity {
 					}
 				}
 			});
-		} else {
-			if (timer != null) {
-				timer.cancel();
-			}
 		}
 		final ArrayList<BusStation_vo> busStation_vo2 = HttpRequest.httpGetBusStationInfo(2);
-		if (!busStation_vo.isEmpty()) {
+		if (busStation_vo != null) {
 			runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
@@ -140,10 +130,6 @@ public class HomeActivity extends AppCompatActivity {
 					}
 				}
 			});
-		} else {
-			if (timer != null) {
-				timer.cancel();
-			}
 		}
 	}
 }
