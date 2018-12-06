@@ -167,7 +167,7 @@ public class JsonAnalysis {
 	 * @param json
 	 */
 	public static ArrayList<Integer> GetParkFree(String json) {
-		ArrayList<Integer> integers = new ArrayList<>();
+		ArrayList<Integer> integers = new ArrayList<Integer>();
 		try {
 			JSONObject object = new JSONObject(json);
 			String serverinfo = object.getString("serverinfo");
