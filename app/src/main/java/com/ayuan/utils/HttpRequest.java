@@ -12,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HttpRequest {
@@ -230,6 +231,23 @@ public class HttpRequest {
 	public static HashMap<String, Object> httpGetParkRate() {
 		try {
 			return JsonAnalysis.GetParkRate(httpSetting(GET_PARK_RATE, null));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 查询当前空闲车位
+	 *
+	 * @return 返回一个List集合，里面放的是空闲车位的id编号
+	 */
+	public static ArrayList<Integer> httpGetParkFree() {
+		try {
+			ArrayList<Integer> integers = JsonAnalysis.GetParkFree(httpSetting(GET_PARK_FREE, null));
+			if (!integers.isEmpty()) {
+				return integers;
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

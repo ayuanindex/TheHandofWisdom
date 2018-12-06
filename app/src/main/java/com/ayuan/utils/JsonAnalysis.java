@@ -4,9 +4,11 @@ import android.text.TextUtils;
 
 import com.ayuan.vo.AllSensors_vo;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class JsonAnalysis {
@@ -157,6 +159,29 @@ public class JsonAnalysis {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	/**
+	 * 解析当前车位
+	 *
+	 * @param json
+	 */
+	public static ArrayList<Integer> GetParkFree(String json) {
+		ArrayList<Integer> integers = new ArrayList<>();
+		try {
+			JSONObject object = new JSONObject(json);
+			String serverinfo = object.getString("serverinfo");
+			JSONArray jsonArray = new JSONArray(serverinfo);
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				int parkFreeId = jsonObject.getInt("ParkFreeId");
+				integers.add(parkFreeId);
+			}
+			return integers;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return integers;
 	}
 
 	//------------------------------------------------------------------

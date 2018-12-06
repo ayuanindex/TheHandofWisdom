@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.ayuan.thehandofwisdom.R;
 import com.ayuan.utils.HttpRequest;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -33,16 +33,10 @@ public class HomeActivity extends AppCompatActivity {
 			@Override
 			public void run() {
 				super.run();
-				final HashMap<String, Object> allSensors_vo = HttpRequest.httpGetParkRate();
+				final ArrayList<Integer> integers = HttpRequest.httpGetParkFree();
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						if (allSensors_vo != null) {
-							tv_json.setText(allSensors_vo.get("RateType") + ":" + allSensors_vo.get("Money"));
-							/*tv_json.setText("Down" + allSensors_vo.get("Down") + "Up:" + allSensors_vo.get("Up"));*/
-						} else {
-							tv_json.setText("没有取到数据");
-						}
 					}
 				});
 			}
