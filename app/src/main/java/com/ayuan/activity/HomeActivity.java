@@ -1,11 +1,17 @@
 package com.ayuan.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ayuan.thehandofwisdom.R;
 import com.ayuan.utils.HttpRequest;
@@ -35,6 +41,8 @@ public class HomeActivity extends AppCompatActivity {
 	private TextView tv_bus2_one;
 	private TextView tv_bus1_two;
 	private TextView tv_bus2_two;
+	private DrawerLayout activity_na;
+	private NavigationView nav;
 	/*private ProgressDialog progressDialog;*/
 
 	@Override
@@ -47,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
 	}
 
 
+	@SuppressLint("WrongViewCast")
 	private void initUI() {
 		iv_menu = (ImageView) findViewById(R.id.iv_menu);
 		tv_pm2_5 = (TextView) findViewById(R.id.tv_pm2_5);/*pm2.5*/
@@ -59,12 +68,29 @@ public class HomeActivity extends AppCompatActivity {
 		//二号站台
 		tv_bus1_two = (TextView) findViewById(R.id.tv_bus1_two);
 		tv_bus2_two = (TextView) findViewById(R.id.tv_bus2_two);
+		//侧边栏
+		activity_na = (DrawerLayout) findViewById(R.id.activity_na);
+		nav = (NavigationView) findViewById(R.id.nav);
+		View headerView = nav.getHeaderView(0);//获取头布局
+
+		nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+			@Override
+			public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+				Toast.makeText(HomeActivity.this, menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+				activity_na.closeDrawer(nav);
+				return true;
+			}
+		});
 
 		//左上角图片的点击事件
 		iv_menu.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				if (activity_na.isDrawerOpen(nav)) {
+					activity_na.closeDrawer(nav);
+				} else {
+					activity_na.openDrawer(nav);
+				}
 			}
 		});
 	}

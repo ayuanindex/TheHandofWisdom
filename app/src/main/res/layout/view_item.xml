@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="match_parent"
+	android:layout_margin="5dp"
+	android:orientation="vertical">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		android:gravity="center_vertical">
+
+		<TextView
+			android:id="@+id/iv_icon"
+			android:layout_width="140dp"
+			android:layout_height="140dp"
+			android:background="@drawable/ic_launcher" />
+
+
+		<TextView
+			android:id="@+id/tv_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentTop="true"
+			android:layout_marginLeft="30sp"
+			android:layout_marginTop="25dp"
+			android:layout_toRightOf="@id/iv_icon"
+			android:text="智  能"
+			android:textSize="30sp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/tv_title"
+			android:layout_marginLeft="10dp"
+			android:layout_marginTop="10dp"
+			android:layout_toRightOf="@id/iv_icon"
+			android:text="交通系统"
+			android:textSize="30sp" />
+	</RelativeLayout>
+
+
+</LinearLayout>
