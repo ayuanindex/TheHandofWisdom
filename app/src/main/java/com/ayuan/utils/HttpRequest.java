@@ -66,6 +66,10 @@ public class HttpRequest {
 	 * 查询当前空闲车位
 	 */
 	private static String GET_PARK_FREE = PORT + "GetParkFree.do";
+	/**
+	 * 查询距离公交站台的距离
+	 */
+	private static String GET_BUS_STATION_INFO = PORT + "GetBusStationInfo.do";
 
 	/**
 	 * 请求小车所有传感器对的值
@@ -249,6 +253,24 @@ public class HttpRequest {
 				return integers;
 			}
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 查询距离公交站台距离
+	 *
+	 * @return
+	 */
+	public static ArrayList<HashMap<String, Integer>> httpGetBusStationInfo(Integer BusStationId) {
+		try {
+			JSONObject object = new JSONObject();
+			object.put("BusStationId", BusStationId);
+			return JsonAnalysis.GetBusStationInfo(httpSetting(GET_BUS_STATION_INFO, object.toString()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return null;

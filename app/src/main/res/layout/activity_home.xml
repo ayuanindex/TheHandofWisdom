@@ -2,13 +2,115 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:background="@drawable/bg_home"
 	android:orientation="vertical">
 
-	<TextView
-		android:id="@+id/tv_json"
+	<RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="jason"
-		android:textSize="30sp" />
+		android:layout_height="wrap_content">
 
+		<TextView style="@style/TitleStyle" />
+
+		<ImageView
+			android:id="@+id/iv_menu"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerVertical="true"
+			android:layout_marginLeft="5dp"
+			android:src="@drawable/menu" />
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:gravity="center_horizontal">
+
+		<ImageView
+			android:id="@+id/iv_day"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/bg_day" />
+
+		<LinearLayout
+			android:layout_width="157dp"
+			android:layout_height="match_parent"
+			android:layout_alignParentLeft="true"
+			android:gravity="center"
+			android:orientation="vertical">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="道路环境" />
+
+
+			<TextView
+				android:id="@+id/tv_temperature"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="\n温度:正在加载" />
+
+			<TextView
+				android:id="@+id/tv_humidity"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="\n湿度:正在加载" />
+
+			<TextView
+				android:id="@+id/tv_co2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="\nCO2:正在加载" />
+
+			<TextView
+				android:id="@+id/tv_pm2_5"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="\nPM2.5:正在加载" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="157dp"
+			android:layout_height="match_parent"
+			android:layout_alignParentRight="true"
+			android:gravity="center"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/tv_station_one"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="距离1号站台距离" />
+
+			<TextView
+				android:id="@+id/tv_bus1_one"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="1号公交" />
+
+			<TextView
+				android:id="@+id/tv_bus2_one"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="2号公交" />
+
+			<TextView
+				android:id="@+id/tv_station_two"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="\n距离1号站台距离:4234" />
+
+			<TextView
+				android:id="@+id/tv_bus1_two"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="1号小车" />
+
+			<TextView
+				android:id="@+id/tv_bus2_two"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="2号小车" />
+		</LinearLayout>
+	</RelativeLayout>
 </LinearLayout>

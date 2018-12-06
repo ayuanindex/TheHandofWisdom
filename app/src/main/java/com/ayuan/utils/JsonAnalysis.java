@@ -31,7 +31,9 @@ public class JsonAnalysis {
 				int humidity = jsonObject.getInt("humidity");
 				int temperature = jsonObject.getInt("temperature");
 				AllSensors_vo allSensors_vo = new AllSensors_vo(pm2_5, co2, lightIntensity, humidity, temperature);
-				return allSensors_vo;
+				if (allSensors_vo != null) {
+					return allSensors_vo;
+				}
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -182,6 +184,34 @@ public class JsonAnalysis {
 			e.printStackTrace();
 		}
 		return integers;
+	}
+
+	/**
+	 * 解析公交车距离站台的距离
+	 *
+	 * @param json
+	 */
+	public static ArrayList<HashMap<String, Integer>> GetBusStationInfo(String json) {
+		ArrayList<HashMap<String, Integer>> hashMaps = new ArrayList<>();
+		HashMap<String, Integer> stringIntegerHashMap = null;
+		try {
+			stringIntegerHashMap = new HashMap<String, Integer>();
+			JSONObject object = new JSONObject(json);
+			String serverinfo = object.getString("serverinfo");
+			JSONArray jsonArray = new JSONArray(serverinfo);
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				int distance = jsonObject.getInt("Distance");
+				int busId = jsonObject.getInt("BusId");
+				stringIntegerHashMap.put("Distance", distance);
+				stringIntegerHashMap.put("BusId", busId);
+				hashMaps.add(stringIntegerHashMap);
+			}
+			return hashMaps;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	//------------------------------------------------------------------
