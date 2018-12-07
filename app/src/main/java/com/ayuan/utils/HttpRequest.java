@@ -25,7 +25,7 @@ public class HttpRequest {
 	public static String setIp() {
 		File file = new File("/data/data/com.ayuan.thehandofwisdom/files", "ip.txt");
 		if (!file.exists()) {
-			Log.i(TAG, "哈asdflkj:");
+			Log.i(TAG, "哈哈:没有修改成功");
 			return "192.168.1.101";
 		}
 		FileInputStream fileInputStream = null;
@@ -50,55 +50,55 @@ public class HttpRequest {
 	/**
 	 * IP
 	 */
-	private static String IP = "192.168.1.101";
+	private static String IP;
 	/**
 	 * 服务器端口
 	 */
-	private static String PORT = "http://" + setIp() + ":8080/transportservice/type/jason/action/";
+	private static String PORT = "http://";
 	/**
 	 * 获取所有传感器
 	 */
-	private static String GET_ALL_SENSE = PORT + "GetAllSense.do";
+	private static String GET_ALL_SENSE = PORT + setIp() + ":8080/transportservice/type/jason/action/GetAllSense.do";
 	/**
 	 * 获取光照传感器
 	 */
-	private static String GET_LIGHT_SENSE_VALUE = PORT + "GetLightSenseValve.do";
+	private static String GET_LIGHT_SENSE_VALUE = PORT + setIp() + ":8080/transportservice/type/jason/action/GetLightSenseValve.do";
 	/**
 	 * 获取小车当前的速度
 	 */
-	private static String GET_CAR_SPEED = PORT + "GetCarSpeed.do";
+	private static String GET_CAR_SPEED = PORT + setIp() + ":8080/transportservice/type/jason/action/GetCarSpeed.do";
 	/**
 	 * 设置小车动作
 	 */
-	private static String SET_CAR_MOVE = PORT + "SetCarMove.do";
+	private static String SET_CAR_MOVE = PORT + setIp() + ":8080/transportservice/type/jason/action/SetCarMove.do";
 	/**
 	 * 查询小车账户余额
 	 */
-	private static String GET_CAR_ACCOUNT_BALANCE = PORT + "GetCarAccountBalance.do";
+	private static String GET_CAR_ACCOUNT_BALANCE = PORT + setIp() + ":8080/transportservice/type/jason/action/GetCarAccountBalance.do";
 	/**
 	 * 小车账户充值
 	 */
-	private static String SET_CAR_ACCOUNT_RECHARGE = PORT + "SetCarAccountRecharge.do";
+	private static String SET_CAR_ACCOUNT_RECHARGE = PORT + setIp() + ":8080/transportservice/type/jason/action/SetCarAccountRecharge.do";
 	/**
 	 * 道路状态查询
 	 */
-	private static String GET_ROAD_STATUS = PORT + "GetRoadStatus.do";
+	private static String GET_ROAD_STATUS = PORT + setIp() + ":8080/transportservice/type/jason/action/GetRoadStatus.do";
 	/**
 	 * 费率设置
 	 */
-	private static String SET_PARK_RATE = PORT + "SetParkRate.do";
+	private static String SET_PARK_RATE = PORT + setIp() + ":8080/transportservice/type/jason/action/SetParkRate.do";
 	/**
 	 * 查询当前费率
 	 */
-	private static String GET_PARK_RATE = PORT + "GetParkRate.do";
+	private static String GET_PARK_RATE = PORT + setIp() + ":8080/transportservice/type/jason/action/GetParkRate.do";
 	/**
 	 * 查询当前空闲车位
 	 */
-	private static String GET_PARK_FREE = PORT + "GetParkFree.do";
+	private static String GET_PARK_FREE = PORT + setIp() + ":8080/transportservice/type/jason/action/GetParkFree.do";
 	/**
 	 * 查询距离公交站台的距离
 	 */
-	private static String GET_BUS_STATION_INFO = PORT + "GetBusStationInfo.do";
+	private static String GET_BUS_STATION_INFO = PORT + setIp() + ":8080/transportservice/type/jason/action/GetBusStationInfo.do";
 
 
 	/**
@@ -318,6 +318,7 @@ public class HttpRequest {
 	 * @throws IOException 抛出异常
 	 */
 	public static String httpSetting(String path, String jsonString) throws IOException {
+		Log.i(TAG, "哈哈:" + path);
 		URL url = new URL(path);
 		HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 		httpURLConnection.setReadTimeout(3000);

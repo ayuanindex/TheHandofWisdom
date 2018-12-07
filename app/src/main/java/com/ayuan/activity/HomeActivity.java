@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
 	private static final String TAG = "HomeActivity";
 	private ImageView iv_menu;
@@ -85,6 +85,12 @@ public class HomeActivity extends AppCompatActivity {
 		five = (RelativeLayout) findViewById(R.id.five);
 		btn_setting = (Button) findViewById(R.id.btn_setting);
 
+		one.setOnClickListener(this);
+		two.setOnClickListener(this);
+		three.setOnClickListener(this);
+		four.setOnClickListener(this);
+		five.setOnClickListener(this);
+
 		//左上角图片的点击事件
 		iv_menu.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -101,9 +107,32 @@ public class HomeActivity extends AppCompatActivity {
 		btn_setting.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(HomeActivity.this, SettingActivity.class));
+				Intent intent = new Intent(HomeActivity.this, SettingActivity.class);
+				startActivity(intent);
 			}
 		});
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+			case R.id.one:
+				//我的座驾
+				startActivity(new Intent(this, MyCarActivity.class));
+				break;
+			case R.id.two:
+				//我的路况
+				break;
+			case R.id.three:
+				//停车查询
+				break;
+			case R.id.four:
+				//公交环境
+				break;
+			case R.id.five:
+				//道路环境
+				break;
+		}
 	}
 
 	private void initData() {
@@ -115,7 +144,7 @@ public class HomeActivity extends AppCompatActivity {
 				initLeftData();
 				initRightData();
 			}
-		}, 4000, 5000);
+		}, 3000, 5000);
 	}
 
 	/**
