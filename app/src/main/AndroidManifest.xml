@@ -24,6 +24,18 @@
 		<activity
 			android:name="com.ayuan.activity.SettingActivity"
 			android:launchMode="singleTask"></activity><!--设置界面-->
+		<activity
+			android:name="com.ayuan.activity.MyCarActivity"
+			android:launchMode="singleTask"></activity><!--我的座驾界面-->
+		<activity
+			android:name="com.ayuan.activity.QueryRecharge"
+			android:launchMode="singleTask"></activity><!--充值页面-->
+		<activity
+			android:name="com.ayuan.activity.MyRoadConditions"
+			android:launchMode="singleTask"></activity><!--我的路况-->
+		<activity
+			android:name="com.ayuan.activity.ParkingSpace"
+			android:launchMode="singleTask"></activity><!--空闲车位-->
 	</application>
 
 </manifest>

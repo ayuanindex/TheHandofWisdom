@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@drawable/bg_setting">
+
+	<RelativeLayout
+		android:id="@+id/rl_top"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<TextView
+			style="@style/TitleStyle"
+			android:layout_alignParentStart="true"
+			android:layout_alignParentTop="true" />
+
+		<TextView
+			android:id="@+id/tv_back"
+			style="@style/TitleStyle"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:background="@drawable/returnactivity" />
+	</RelativeLayout>
+
+	<TextView
+		android:id="@+id/tv_title"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/rl_top"
+		android:layout_margin="10dp"
+		android:text="路面红灯信息查询"
+		android:textSize="30sp" />
+
+	<TextView
+		android:id="@+id/tv_left"
+		android:layout_width="wrap_content"
+		android:layout_height="40dp"
+		android:layout_below="@id/tv_title"
+		android:layout_marginLeft="20dp"
+		android:gravity="center"
+		android:text="排序规则："
+		android:textSize="25sp" />
+
+	<Spinner
+		android:id="@+id/s_sort"
+		android:layout_width="120dp"
+		android:layout_height="40dp"
+		android:layout_below="@id/tv_title"
+		android:layout_toRightOf="@id/tv_left"></Spinner>
+
+	<Button
+		android:id="@+id/btn_query"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/tv_title"
+		android:layout_toRightOf="@id/s_sort"
+		android:text="查询"
+		android:textSize="20sp" />
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/tv_left"
+		android:layout_centerInParent="true"
+		android:layout_marginLeft="10dp"
+		android:layout_marginTop="20sp"
+		android:layout_marginRight="10dp"
+		android:orientation="horizontal">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:orientation="vertical">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/top_solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="路口"
+				android:textSize="22sp" />
+
+			<TextView
+				android:id="@+id/et_one"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="1号路口" />
+
+			<TextView
+				android:id="@+id/et_two"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="2号路口" />
+
+			<TextView
+				android:id="@+id/et_three"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="3号路口" />
+
+			<TextView
+				android:id="@+id/et_four"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="4号路口" />
+
+			<TextView
+				android:id="@+id/et_five"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="5号路口" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:orientation="vertical">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/top_solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="红灯时长/s"
+				android:textSize="22sp" />
+
+			<TextView
+				android:id="@+id/et_red_one"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="1" />
+
+			<TextView
+				android:id="@+id/et_red_two"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="2" />
+
+			<TextView
+				android:id="@+id/et_red_three"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="3" />
+
+			<TextView
+				android:id="@+id/et_red_four"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="4" />
+
+			<TextView
+				android:id="@+id/et_red_five"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="5" />
+		</LinearLayout>
+
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:orientation="vertical">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/top_solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="绿灯时长/s"
+				android:textSize="22sp" />
+
+			<TextView
+				android:id="@+id/et_green_one"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="30" />
+
+			<TextView
+				android:id="@+id/et_green_two"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="30" />
+
+			<TextView
+				android:id="@+id/et_green_three"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="30" />
+
+			<TextView
+				android:id="@+id/et_green_four"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="30" />
+
+			<TextView
+				android:id="@+id/et_green_five"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="30" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:orientation="vertical">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/top_solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="黄灯时长/s"
+				android:textSize="22sp" />
+
+			<TextView
+				android:id="@+id/et_yellow_one"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="5" />
+
+			<TextView
+				android:id="@+id/et_yellow_two"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="5" />
+
+			<TextView
+				android:id="@+id/et_yellow_three"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="5" />
+
+			<TextView
+				android:id="@+id/et_yellow_four"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="5" />
+
+			<TextView
+				android:id="@+id/et_yellow_five"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/solid"
+				android:gravity="center"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:text="5" />
+		</LinearLayout>
+
+	</LinearLayout>
+</RelativeLayout>

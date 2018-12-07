@@ -118,13 +118,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 		switch (v.getId()) {
 			case R.id.one:
 				//我的座驾
+				timer.cancel();
 				startActivity(new Intent(this, MyCarActivity.class));
 				break;
 			case R.id.two:
 				//我的路况
+				timer.cancel();
+				startActivity(new Intent(this, MyRoadConditions.class));
 				break;
 			case R.id.three:
 				//停车查询
+				timer.cancel();
+				startActivity(new Intent(this, ParkingSpace.class));
 				break;
 			case R.id.four:
 				//公交环境

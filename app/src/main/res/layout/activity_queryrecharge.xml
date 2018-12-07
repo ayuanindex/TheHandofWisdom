@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<RelativeLayout
+		android:id="@+id/rl_top"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<TextView
+			style="@style/TitleStyle"
+			android:gravity="center"
+			android:text="我的座驾"
+			android:textColor="#147cc4"
+			android:textSize="22sp" />
+
+		<TextView
+			android:id="@+id/tv_back"
+			style="@style/TitleStyle"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:background="@drawable/returnactivity" />
+	</RelativeLayout>
+
+	<LinearLayout
+		android:id="@+id/ll_left"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:layout_below="@id/rl_top"
+		android:gravity="center_vertical"
+		android:orientation="vertical"
+		android:padding="200dp">
+
+		<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/bus" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_below="@id/rl_top"
+		android:layout_toRightOf="@id/ll_left"
+		android:gravity="center_vertical"
+		android:orientation="vertical">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="20dp"
+			android:text="小车账户查询"
+			android:textSize="30sp" />
+
+		<RelativeLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical">
+
+			<TextView
+				android:id="@+id/tv_carid1"
+				android:layout_width="wrap_content"
+				android:layout_height="39dp"
+				android:layout_alignParentTop="true"
+				android:layout_marginTop="0dp"
+				android:gravity="center_vertical"
+				android:text="车辆id: "
+				android:textSize="20sp" />
+
+			<Spinner
+				android:id="@+id/spinner"
+				android:layout_width="80dp"
+				android:layout_height="39dp"
+				android:layout_marginLeft="20dp"
+				android:layout_toRightOf="@id/tv_carid1"
+				android:autofillHints="1" />
+
+			<Button
+				android:id="@+id/btn_query"
+				android:layout_width="80dp"
+				android:layout_height="39dp"
+				android:layout_marginLeft="20dp"
+				android:layout_toRightOf="@id/spinner"
+				android:background="#eb8329"
+				android:text="查询" />
+		</RelativeLayout>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="30dp"
+			android:layout_marginBottom="20dp"
+			android:text="小车账户充值"
+			android:textSize="30sp" />
+
+		<RelativeLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical">
+
+			<TextView
+				android:id="@+id/tv_carid2"
+				android:layout_width="wrap_content"
+				android:layout_height="39dp"
+				android:layout_alignParentTop="true"
+				android:layout_marginTop="0dp"
+				android:gravity="center_vertical"
+				android:text="车辆id: "
+				android:textSize="20sp" />
+
+			<Spinner
+				android:id="@+id/spinner2"
+				android:layout_width="80dp"
+				android:layout_height="39dp"
+				android:layout_marginLeft="20dp"
+				android:layout_toRightOf="@id/tv_carid2" />
+
+			<EditText
+				android:id="@+id/et_money"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="2dp"
+				android:layout_toRightOf="@id/spinner2"
+				android:hint="0000"
+				android:inputType="number"
+				android:maxLength="4"
+				android:singleLine="true"
+				android:textSize="18sp" />
+
+			<Button
+				android:id="@+id/btn_query2"
+				android:layout_width="80dp"
+				android:layout_height="39dp"
+				android:layout_marginLeft="20dp"
+				android:layout_toRightOf="@id/et_money"
+				android:background="#eb8329"
+				android:text="充值" />
+		</RelativeLayout>
+
+	</LinearLayout>
+</RelativeLayout>

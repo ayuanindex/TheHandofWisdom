@@ -99,6 +99,10 @@ public class HttpRequest {
 	 * 查询距离公交站台的距离
 	 */
 	private static String GET_BUS_STATION_INFO = PORT + setIp() + ":8080/transportservice/type/jason/action/GetBusStationInfo.do";
+	/**
+	 * 查询路口红绿灯状态
+	 */
+	private static String GET_TRAFFIC_LIGHT_CONFIG_ACTION = PORT + setIp() + ":8080/transportservice/type/jason/action/GetTrafficLightConfigAction.do";
 
 
 	/**
@@ -141,20 +145,23 @@ public class HttpRequest {
 	 * @param CarId 需要获取的小车编号  (1<=CarId<=15)
 	 * @return
 	 */
-	public static Integer httpGetCarSpeed(int CarId) {
+	public static int httpGetCarSpeed(int CarId) {
 		try {
 			JSONObject object = new JSONObject();
 			object.put("CarId", CarId);
 			if (object != null) {
-				return JsonAnalysis.GetCarSpeed(httpSetting(GET_CAR_SPEED, object.toString()));
+				int carSpeed = JsonAnalysis.GetCarSpeed(httpSetting(GET_CAR_SPEED, object.toString()));
+				Log.i(TAG, "嘻嘻:" + carSpeed);
+				if (carSpeed >= 0) {
+					return carSpeed;
+				}
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			return 404;
 		}
+		return -1;
 	}
 
 	/**
@@ -173,15 +180,15 @@ public class HttpRequest {
 				return JsonAnalysis.GetResult(httpSetting(SET_CAR_MOVE, object.toString()));
 			}
 		} catch (JSONException e) {
-
 			e.printStackTrace();
-			return "解析错误";
+			return "failed";
 		} catch (IOException e) {
 			e.printStackTrace();
-			return "json转换出错";
-		} finally {
-			return null;
+			return "failed";
+		} catch (Exception e) {
+			return "failed";
 		}
+		return "failed";
 	}
 
 	/**
@@ -212,6 +219,8 @@ public class HttpRequest {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "fail";
@@ -252,6 +261,8 @@ public class HttpRequest {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "fail";
@@ -299,6 +310,25 @@ public class HttpRequest {
 			object.put("BusStationId", BusStationId);
 			httpSetting(GET_BUS_STATION_INFO, object.toString());
 			return JsonAnalysis.GetBusStationInfo(httpSetting(GET_BUS_STATION_INFO, object.toString()));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 查询路口红绿灯状态
+	 */
+	public static ArrayList<Integer> httpGetTrafficLightConfigAction(int TrafficLightId) {
+		try {
+			JSONObject object = new JSONObject();
+			object.put("TrafficLightId", TrafficLightId);
+			ArrayList<Integer> integers = JsonAnalysis.GetTrafficLightConfigAction(httpSetting(GET_TRAFFIC_LIGHT_CONFIG_ACTION, object.toString()));
+			if (integers != null) {
+				return integers;
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

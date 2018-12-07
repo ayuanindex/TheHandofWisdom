@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<RelativeLayout
+		android:id="@+id/rl_top"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<TextView style="@style/TitleStyle" />
+
+		<TextView
+			android:id="@+id/tv_back"
+			style="@style/TitleStyle"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:background="@drawable/returnactivity" />
+	</RelativeLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_centerInParent="true"
+		android:orientation="horizontal"
+		android:paddingLeft="200dp"
+		android:paddingRight="200dp">
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center_horizontal"
+			android:orientation="vertical">
+
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/bus" />
+
+			<TextView
+				android:id="@+id/tv_car1_speed"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:text="停止"
+				android:textSize="19sp" />
+
+			<Button
+				android:id="@+id/btn_start1_stop"
+				style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:background="#ff902f"
+				android:text="启动"
+				android:textColor="#000000" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center_horizontal"
+			android:orientation="vertical">
+
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/bus" />
+
+			<TextView
+				android:id="@+id/tv_car2_speed"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:text="停止"
+				android:textSize="19sp" />
+
+			<Button
+				android:id="@+id/btn_start2_stop"
+				style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:background="#ff902f"
+				android:text="启动"
+				android:textColor="#000000" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center_horizontal"
+			android:orientation="vertical">
+
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/bus" />
+
+			<TextView
+				android:id="@+id/tv_car3_speed"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:text="停止"
+				android:textSize="19sp" />
+
+			<Button
+				android:id="@+id/btn_start3_stop"
+				style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:background="#ff902f"
+				android:text="启动"
+				android:textColor="#000000" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center_horizontal"
+			android:orientation="vertical">
+
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/bus" />
+
+			<TextView
+				android:id="@+id/tv_car4_speed"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:text="停止"
+				android:textSize="19sp" />
+
+			<Button
+				android:id="@+id/btn_start4_stop"
+				style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:background="#ff902f"
+				android:text="启动"
+				android:textColor="#000000" />
+		</LinearLayout>
+	</LinearLayout>
+
+	<Button
+		android:id="@+id/btn_recharge"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentBottom="true"
+		android:layout_margin="50dp"
+		android:background="@drawable/bg_table"
+		android:text="账户查询与充值"
+		android:textColor="#ffffff"
+		android:textSize="30dp" />
+</RelativeLayout>

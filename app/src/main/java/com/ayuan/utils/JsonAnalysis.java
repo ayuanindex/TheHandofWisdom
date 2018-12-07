@@ -1,6 +1,7 @@
 package com.ayuan.utils;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.ayuan.vo.AllSensors_vo;
 import com.ayuan.vo.BusStation_vo;
@@ -68,7 +69,7 @@ public class JsonAnalysis {
 	 *
 	 * @param json
 	 */
-	public static Integer GetCarSpeed(String json) {
+	public static int GetCarSpeed(String json) {
 		try {
 			JSONObject jsonObject = getJsonObject(json);
 			int carSpeed = jsonObject.getInt("CarSpeed");
@@ -76,7 +77,7 @@ public class JsonAnalysis {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return -1;
 	}
 
 
@@ -87,14 +88,21 @@ public class JsonAnalysis {
 	 * @return 设置(充值)成功返回"ok", 设置(充值)失败返回"fail"
 	 */
 	public static String GetResult(String json) {
+		Log.i(TAG, "呼呼:" + json);
 		try {
 			JSONObject jsonObject = getJsonObject(json);
 			String result = jsonObject.getString("result");
+			Log.i(TAG, "呼呼:" + result);
 			return result;
 		} catch (JSONException e) {
 			e.printStackTrace();
+			Log.i(TAG, "json数据请求发生串");
+			return "failed";
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.i(TAG, "json数据请求发生串");
+			return "failed";
 		}
-		return "fail";
 	}
 
 	/**
@@ -212,13 +220,41 @@ public class JsonAnalysis {
 		return null;
 	}
 
-	//------------------------------------------------------------------
-	private static JSONObject getJsonObject(String json) throws JSONException {
-		JSONObject object = new JSONObject(json);
-		String serverinfo = object.getString("serverinfo");
-		JSONObject jsonObject = new JSONObject(serverinfo);
-		return jsonObject;
+	/**
+	 * 解析红绿灯状态
+	 *
+	 * @param json
+	 */
+	public static ArrayList<Integer> GetTrafficLightConfigAction(String json) {
+		ArrayList<Integer> integers = new ArrayList<>();
+		try {
+			JSONObject jsonObject = getJsonObject(json);
+			int redTime = jsonObject.getInt("RedTime");
+			int greenTime = jsonObject.getInt("GreenTime");
+			int yellowTime = jsonObject.getInt("YellowTime");
+			integers.add(redTime);
+			integers.add(greenTime);
+			integers.add(yellowTime);
+			if (integers.size() == 3) {
+				return integers;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
-
+	//------------------------------------------------------------------
+	private static JSONObject getJsonObject(String json) {
+		JSONObject object = null;
+		try {
+			object = new JSONObject(json);
+			String serverinfo = object.getString("serverinfo");
+			JSONObject jsonObject = new JSONObject(serverinfo);
+			return jsonObject;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
