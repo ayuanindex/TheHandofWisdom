@@ -1,17 +1,17 @@
 package com.ayuan.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ayuan.thehandofwisdom.R;
 import com.ayuan.utils.HttpRequest;
@@ -43,6 +43,12 @@ public class HomeActivity extends AppCompatActivity {
 	private TextView tv_bus2_two;
 	private DrawerLayout activity_na;
 	private NavigationView nav;
+	private RelativeLayout one;
+	private RelativeLayout two;
+	private RelativeLayout three;
+	private RelativeLayout four;
+	private RelativeLayout five;
+	private Button btn_setting;
 	/*private ProgressDialog progressDialog;*/
 
 	@Override
@@ -55,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
 	}
 
 
-	@SuppressLint("WrongViewCast")
+	@SuppressLint({"WrongViewCast", "NewApi"})
 	private void initUI() {
 		iv_menu = (ImageView) findViewById(R.id.iv_menu);
 		tv_pm2_5 = (TextView) findViewById(R.id.tv_pm2_5);/*pm2.5*/
@@ -71,16 +77,13 @@ public class HomeActivity extends AppCompatActivity {
 		//侧边栏
 		activity_na = (DrawerLayout) findViewById(R.id.activity_na);
 		nav = (NavigationView) findViewById(R.id.nav);
-		View headerView = nav.getHeaderView(0);//获取头布局
-
-		nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-			@Override
-			public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-				Toast.makeText(HomeActivity.this, menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-				activity_na.closeDrawer(nav);
-				return true;
-			}
-		});
+		//侧边栏item
+		one = (RelativeLayout) findViewById(R.id.one);
+		two = (RelativeLayout) findViewById(R.id.two);
+		three = (RelativeLayout) findViewById(R.id.three);
+		four = (RelativeLayout) findViewById(R.id.four);
+		five = (RelativeLayout) findViewById(R.id.five);
+		btn_setting = (Button) findViewById(R.id.btn_setting);
 
 		//左上角图片的点击事件
 		iv_menu.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +94,14 @@ public class HomeActivity extends AppCompatActivity {
 				} else {
 					activity_na.openDrawer(nav);
 				}
+			}
+		});
+
+		//设置按钮的点击事件
+		btn_setting.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(HomeActivity.this, SettingActivity.class));
 			}
 		});
 	}
@@ -104,7 +115,7 @@ public class HomeActivity extends AppCompatActivity {
 				initLeftData();
 				initRightData();
 			}
-		}, 3000, 5000);
+		}, 4000, 5000);
 	}
 
 	/**

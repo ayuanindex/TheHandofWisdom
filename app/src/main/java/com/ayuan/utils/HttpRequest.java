@@ -1,11 +1,16 @@
 package com.ayuan.utils;
 
+import android.util.Log;
+
 import com.ayuan.vo.AllSensors_vo;
 import com.ayuan.vo.BusStation_vo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -17,6 +22,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HttpRequest {
+	public static String setIp() {
+		File file = new File("/data/data/com.ayuan.thehandofwisdom/files", "ip.txt");
+		if (!file.exists()) {
+			Log.i(TAG, "哈asdflkj:");
+			return "192.168.1.101";
+		}
+		FileInputStream fileInputStream = null;
+		StringBuilder stringBuilder = new StringBuilder("");
+		try {
+			fileInputStream = new FileInputStream(file);
+			int b;
+			while ((b = fileInputStream.read()) != -1) {
+				stringBuilder.append((char) b);
+			}
+			IP = stringBuilder.toString();
+			return IP;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "192.168.1.101";
+	}
 
 	private static String TAG = "HttpRequest";
 	/**
@@ -26,7 +54,7 @@ public class HttpRequest {
 	/**
 	 * 服务器端口
 	 */
-	private static String PORT = "http://192.168.1.101:8080/transportservice/type/jason/action/";
+	private static String PORT = "http://" + setIp() + ":8080/transportservice/type/jason/action/";
 	/**
 	 * 获取所有传感器
 	 */
@@ -71,6 +99,7 @@ public class HttpRequest {
 	 * 查询距离公交站台的距离
 	 */
 	private static String GET_BUS_STATION_INFO = PORT + "GetBusStationInfo.do";
+
 
 	/**
 	 * 请求小车所有传感器对的值
@@ -316,6 +345,8 @@ public class HttpRequest {
 			if (inputStream != null) {
 				String json = StreamUtils.StreamToString(inputStream);
 				return json;
+			} else {
+				inputStream.close();
 			}
 		}
 		return null;

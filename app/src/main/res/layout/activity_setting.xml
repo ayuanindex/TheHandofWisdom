@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@drawable/bg_setting">
+
+	<TextView style="@style/TitleStyle" />
+
+	<LinearLayout
+		android:id="@+id/ll_c"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_centerInParent="true"
+		android:orientation="horizontal"
+		android:paddingLeft="300dp"
+		android:paddingRight="300dp">
+
+		<EditText
+			android:id="@+id/et_one"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:hint="255"
+			android:inputType="number"
+			android:maxLength="3"
+			android:singleLine="true"
+			android:textAlignment="center"
+			android:textSize="25sp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="."
+			android:textSize="30sp" />
+
+		<EditText
+			android:id="@+id/et_two"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:hint="255"
+			android:inputType="number"
+			android:maxLength="3"
+			android:singleLine="true"
+			android:textAlignment="center"
+			android:textSize="25sp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="."
+			android:textSize="30sp" />
+
+		<EditText
+			android:id="@+id/et_three"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:hint="255"
+			android:inputType="number"
+			android:maxLength="3"
+			android:singleLine="true"
+			android:textAlignment="center"
+			android:textSize="25sp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="."
+			android:textSize="30sp" />
+
+		<EditText
+			android:id="@+id/et_four"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:hint="255"
+			android:inputType="number"
+			android:maxLength="3"
+			android:singleLine="true"
+			android:textAlignment="center"
+			android:textSize="25sp" />
+	</LinearLayout>
+
+	<Button
+		android:id="@+id/btn_ok"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/ll_c"
+		android:layout_marginLeft="300dp"
+		android:layout_marginTop="50dp"
+		android:layout_marginRight="300dp"
+		android:text="确定"
+		android:textAlignment="center"
+		android:textSize="20sp" />
+
+
+</RelativeLayout>

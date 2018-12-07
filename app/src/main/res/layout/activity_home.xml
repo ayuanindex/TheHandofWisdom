@@ -15,7 +15,8 @@
 		<RelativeLayout
 			android:id="@+id/rl_top"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+			android:background="#61a9dc">
 
 			<TextView style="@style/TitleStyle" />
 
@@ -174,6 +175,7 @@
 				</LinearLayout>
 			</LinearLayout>
 		</LinearLayout>
+
 	</RelativeLayout>
 
 	<android.support.design.widget.NavigationView
@@ -199,38 +201,226 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center">
 
-			<TextView
-				android:id="@+id/iv1"
+			<RelativeLayout
+				android:id="@+id/one"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_centerVertical="true"
-				android:background="@drawable/c" />
+				android:layout_gravity="center"
+				android:background="@drawable/selector_left_item">
 
-			<TextView
-				android:id="@+id/tv1"
+				<TextView
+					android:id="@+id/iv1"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:background="@drawable/c" />
+
+				<TextView
+					android:id="@+id/tv1"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:layout_marginLeft="40dp"
+					android:layout_marginRight="30dp"
+					android:layout_toRightOf="@id/iv1"
+					android:text="我的座驾"
+					android:textSize="27dp" />
+
+				<ImageView
+					android:id="@+id/iv2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:layout_toRightOf="@id/tv1"
+					android:src="@drawable/right" />
+
+				<View
+					android:layout_width="280dp"
+					android:layout_height="1dp"
+					android:layout_below="@id/iv1"
+					android:layout_marginTop="14dp"
+					android:background="#808080" />
+			</RelativeLayout>
+
+			<RelativeLayout
+				android:id="@+id/two"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_centerVertical="true"
-				android:layout_marginLeft="40dp"
-				android:layout_marginRight="30dp"
-				android:layout_toRightOf="@id/iv1"
-				android:text="我的座驾"
-				android:textSize="27dp" />
+				android:layout_below="@id/one"
+				android:layout_gravity="center"
+				android:background="@drawable/selector_left_item">
 
-			<ImageView
-				android:id="@+id/iv2"
+				<TextView
+					android:id="@+id/iv1_two"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:background="@drawable/r" />
+
+				<TextView
+					android:id="@+id/tv1_two"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:layout_marginLeft="40dp"
+					android:layout_marginRight="30dp"
+					android:layout_toRightOf="@id/iv1_two"
+					android:text="我的路况"
+					android:textSize="27dp" />
+
+				<ImageView
+					android:id="@+id/iv2_two"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:layout_toRightOf="@id/tv1_two"
+					android:src="@drawable/right" />
+
+				<View
+					android:layout_width="280dp"
+					android:layout_height="1dp"
+					android:layout_below="@id/iv1_two"
+					android:layout_marginTop="14dp"
+					android:background="#808080" />
+			</RelativeLayout>
+
+			<RelativeLayout
+				android:id="@+id/three"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_centerVertical="true"
-				android:layout_toRightOf="@id/tv1"
-				android:src="@drawable/right" />
+				android:layout_below="@+id/two"
+				android:layout_gravity="center"
+				android:background="@drawable/selector_left_item">
 
-			<View
-				android:layout_width="280dp"
-				android:layout_height="1dp"
-				android:layout_below="@id/iv1"
-				android:layout_marginTop="14dp"
-				android:background="#808080" />
+				<TextView
+					android:id="@+id/iv1_three"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:background="@drawable/p" />
+
+				<TextView
+					android:id="@+id/tv1_three"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:layout_marginLeft="40dp"
+					android:layout_marginRight="30dp"
+					android:layout_toRightOf="@id/iv1_three"
+					android:text="停车查询"
+					android:textSize="27dp" />
+
+				<ImageView
+					android:id="@+id/iv2_three"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:layout_toRightOf="@id/tv1_three"
+					android:src="@drawable/right" />
+
+				<View
+					android:layout_width="280dp"
+					android:layout_height="1dp"
+					android:layout_below="@id/iv1_three"
+					android:layout_marginTop="14dp"
+					android:background="#808080" />
+			</RelativeLayout>
+
+			<RelativeLayout
+				android:id="@+id/four"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/three"
+				android:layout_gravity="center"
+				android:background="@drawable/selector_left_item">
+
+				<TextView
+					android:id="@+id/iv1_four"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:background="@drawable/b" />
+
+				<TextView
+					android:id="@+id/tv1_four"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:layout_marginLeft="40dp"
+					android:layout_marginRight="30dp"
+					android:layout_toRightOf="@id/iv1_four"
+					android:text="公交环境"
+					android:textSize="27dp" />
+
+				<ImageView
+					android:id="@+id/iv2_four"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:layout_toRightOf="@id/tv1_four"
+					android:src="@drawable/right" />
+
+				<View
+					android:layout_width="280dp"
+					android:layout_height="1dp"
+					android:layout_below="@id/iv1_four"
+					android:layout_marginTop="14dp"
+					android:background="#808080" />
+
+			</RelativeLayout>
+
+			<RelativeLayout
+				android:id="@+id/five"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/four"
+				android:layout_gravity="center"
+				android:background="@drawable/selector_left_item">
+
+				<TextView
+					android:id="@+id/iv1_five"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:background="@drawable/e" />
+
+				<TextView
+					android:id="@+id/tv1_five"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:layout_marginLeft="40dp"
+					android:layout_marginRight="30dp"
+					android:layout_toRightOf="@id/iv1_five"
+					android:text="道路环境"
+					android:textSize="27dp" />
+
+				<ImageView
+					android:id="@+id/iv2_five"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:layout_toRightOf="@id/tv1_five"
+					android:src="@drawable/right" />
+
+				<View
+					android:layout_width="280dp"
+					android:layout_height="1dp"
+					android:layout_below="@id/iv1_five"
+					android:layout_marginTop="14dp"
+					android:background="#808080" />
+			</RelativeLayout>
 		</RelativeLayout>
+
+		<Button
+			android:id="@+id/btn_setting"
+			style="@style/Widget.AppCompat.Button.Borderless.Colored"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom"
+			android:layout_margin="10dp"
+			android:text="设置"
+			android:textColor="#000000"
+			android:textSize="28sp" />
 	</android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>

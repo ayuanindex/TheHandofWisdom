@@ -21,6 +21,9 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+		<activity
+			android:name="com.ayuan.activity.SettingActivity"
+			android:launchMode="singleTask"></activity><!--设置界面-->
 	</application>
 
 </manifest>
