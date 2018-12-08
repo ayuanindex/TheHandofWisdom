@@ -256,7 +256,7 @@ public class HttpRequest {
 	 */
 	public static ArrayList<Integer> httpGetParkFree() {
 		ArrayList<Integer> integers = JsonAnalysis.GetParkFree(httpSetting(GET_PARK_FREE, null));
-		if (!integers.isEmpty()) {
+		if (integers != null) {
 			return integers;
 		}
 		return null;

@@ -121,22 +121,27 @@ public class ParkingSpace extends AppCompatActivity implements View.OnClickListe
 				break;
 			case R.id.btn_query2:
 				//查询空位
-				new Thread() {
-					@Override
-					public void run() {
-						super.run();
-						final ArrayList<Integer> integers = HttpRequest.httpGetParkFree();
-						runOnUiThread(new Runnable() {
-							@Override
-							public void run() {
-								if (!integers.isEmpty()) {
-									parkFree(integers, 0, iv_left);
-									parkFree(integers, 1, iv_right);
+				try {
+					new Thread() {
+						@Override
+						public void run() {
+							super.run();
+							final ArrayList<Integer> integers = HttpRequest.httpGetParkFree();
+							runOnUiThread(new Runnable() {
+								@Override
+								public void run() {
+									if (integers != null) {
+										parkFree(integers, 0, iv_left);
+										parkFree(integers, 1, iv_right);
+									}
 								}
-							}
-						});
-					}
-				}.start();
+							});
+						}
+					}.start();
+				} catch (Exception e) {
+					e.printStackTrace();
+					Log.i(TAG, "捕捉到了异常");
+				}
 				break;
 		}
 	}
