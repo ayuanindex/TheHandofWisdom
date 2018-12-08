@@ -36,6 +36,7 @@ public class HttpRequest {
 				stringBuilder.append((char) b);
 			}
 			IP = stringBuilder.toString();
+			Log.i(TAG, "我的ip" + IP);
 			return IP;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

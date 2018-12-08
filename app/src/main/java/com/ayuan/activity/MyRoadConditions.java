@@ -43,6 +43,7 @@ public class MyRoadConditions extends AppCompatActivity {
 	private Button btn_query;
 	private ArrayList<ArrayList<Integer>> arrayLists;
 	private String[] strings = new String[]{"绿灯降序", "红灯升序"};
+	private TextView tv_back;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,6 +85,7 @@ public class MyRoadConditions extends AppCompatActivity {
 		s_sort.setAdapter(stringArrayAdapter);
 		//按钮
 		btn_query = (Button) findViewById(R.id.btn_query);
+		tv_back = (TextView) findViewById(R.id.tv_back);
 
 		s_sort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
@@ -101,6 +103,12 @@ public class MyRoadConditions extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				initData();
+			}
+		});
+		tv_back.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
 			}
 		});
 	}

@@ -183,33 +183,40 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 	 * 加载右侧的数据
 	 */
 	private void initRightData() {
-		final ArrayList<BusStation_vo> busStation_vo = HttpRequest.httpGetBusStationInfo(1);
-		if (busStation_vo != null) {
-			runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					BusStation_vo bus1 = busStation_vo.get(0);
-					BusStation_vo bus2 = busStation_vo.get(1);
-					if (!busStation_vo.isEmpty()) {
-						tv_bus1_one.setText(bus1.getBusId() + "号公交:" + bus1.getDistance() + "m; ");
-						tv_bus2_one.setText(bus2.getBusId() + "号公交:" + bus2.getDistance() + "m");
+		try {
+			final ArrayList<BusStation_vo> busStation_vo = HttpRequest.httpGetBusStationInfo(1);
+			if (busStation_vo != null) {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						BusStation_vo bus1 = busStation_vo.get(0);
+						BusStation_vo bus2 = busStation_vo.get(1);
+						if (!busStation_vo.isEmpty()) {
+							tv_bus1_one.setText(bus1.getBusId() + "号公交:" + bus1.getDistance() + "m; ");
+							tv_bus2_one.setText(bus2.getBusId() + "号公交:" + bus2.getDistance() + "m");
+						}
 					}
-				}
-			});
-		}
-		final ArrayList<BusStation_vo> busStation_vo2 = HttpRequest.httpGetBusStationInfo(2);
-		if (busStation_vo != null) {
-			runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					BusStation_vo bus1 = busStation_vo2.get(0);
-					BusStation_vo bus2 = busStation_vo2.get(1);
-					if (!busStation_vo.isEmpty()) {
-						tv_bus1_two.setText(bus1.getBusId() + "号公交:" + bus1.getDistance() + "m; ");
-						tv_bus2_two.setText(bus2.getBusId() + "号公交:" + bus2.getDistance() + "m");
+				});
+			}
+			final ArrayList<BusStation_vo> busStation_vo2 = HttpRequest.httpGetBusStationInfo(2);
+			if (busStation_vo != null) {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						BusStation_vo bus1 = busStation_vo2.get(0);
+						BusStation_vo bus2 = busStation_vo2.get(1);
+						if (!busStation_vo.isEmpty()) {
+							tv_bus1_two.setText(bus1.getBusId() + "号公交:" + bus1.getDistance() + "m; ");
+							tv_bus2_two.setText(bus2.getBusId() + "号公交:" + bus2.getDistance() + "m");
+						}
 					}
-				}
-			});
+				});
+			}
+		} catch (RuntimeException e) {
+			Log.i(TAG, "运行时异常已经捕捉");
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.i(TAG, "数据加载不完全或存在串数据");
 		}
 	}
 

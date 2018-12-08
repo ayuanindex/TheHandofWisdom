@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +18,13 @@ import com.ayuan.vo.AllSensors_vo;
 import com.ayuan.vo.BusStation_vo;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class OneFragment extends Fragment {
 
+	private static final String TAG = "OneFragment";
 	private TextView bus1;
 	private TextView bus2;
 	private TextView environment;
-	private Timer timer;
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -62,23 +61,31 @@ public class OneFragment extends Fragment {
 	}
 
 	private void initData() {
-		timer = new Timer();
-		timer.schedule(new TimerTask() {
+		new Thread() {
 			@Override
 			public void run() {
-				busStation_vos = HttpRequest.httpGetBusStationInfo(1);
-				if (busStation_vos != null) {
-					Message message = Message.obtain();
-					message.what = 1;
-					mHandler.sendMessage(message);
-				}
-				allSensors_vo = HttpRequest.httpGetAllSense();
-				if (allSensors_vo != null) {
-					Message message = Message.obtain();
-					message.what = 2;
-					mHandler.sendMessage(message);
+				super.run();
+				try {
+					busStation_vos = HttpRequest.httpGetBusStationInfo(1);
+					Thread.sleep(200);
+					if (busStation_vos != null) {
+						Message message = Message.obtain();
+						message.what = 1;
+						mHandler.sendMessage(message);
+					}
+					allSensors_vo = HttpRequest.httpGetAllSense();
+					if (allSensors_vo != null) {
+						Message message = Message.obtain();
+						message.what = 2;
+						mHandler.sendMessage(message);
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+					Log.i(TAG, "捕捉到了异常");
 				}
 			}
-		}, 1000, 5000);
+		}.start();
 	}
 }

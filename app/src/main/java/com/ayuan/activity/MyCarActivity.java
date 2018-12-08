@@ -64,25 +64,33 @@ public class MyCarActivity extends AppCompatActivity implements View.OnClickList
 	}
 
 	private void initData() {
-		//获取四辆小车的运行状态
-		new Thread() {
-			@Override
-			public void run() {
-				super.run();
-				try {
-					final int carSpeed1 = HttpRequest.httpGetCarSpeed(1);
-					Thread.sleep(100);
-					final int carSpeed2 = HttpRequest.httpGetCarSpeed(2);
-					Thread.sleep(100);
-					final int carSpeed3 = HttpRequest.httpGetCarSpeed(3);
-					Thread.sleep(100);
-					final int carSpeed4 = HttpRequest.httpGetCarSpeed(4);
-					carSpeed(carSpeed1, carSpeed2, carSpeed3, carSpeed4);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+		try {
+			//获取四辆小车的运行状态
+			new Thread() {
+				@Override
+				public void run() {
+					super.run();
+					try {
+						final int carSpeed1 = HttpRequest.httpGetCarSpeed(1);
+						Thread.sleep(100);
+						final int carSpeed2 = HttpRequest.httpGetCarSpeed(2);
+						Thread.sleep(100);
+						final int carSpeed3 = HttpRequest.httpGetCarSpeed(3);
+						Thread.sleep(100);
+						final int carSpeed4 = HttpRequest.httpGetCarSpeed(4);
+						carSpeed(carSpeed1, carSpeed2, carSpeed3, carSpeed4);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
-			}
-		}.start();
+			}.start();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			Log.i(TAG, "捕捉到了运行时异常");
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.i(TAG, "扑捉到了异常");
+		}
 	}
 
 	private void carSpeed(final int carSpeed1, final int carSpeed2, final int carSpeed3, final int carSpeed4) {
@@ -144,60 +152,65 @@ public class MyCarActivity extends AppCompatActivity implements View.OnClickList
 
 	private void myStart_Stop_Car(final Button btn, final TextView tv, final String CAR, final int CarId) {
 		boolean aBoolean = SpUtils.getBoolean(this, CAR, false);
-		if (aBoolean) {
-			new Thread() {
-				@Override
-				public void run() {
-					super.run();
-					final String stop = HttpRequest.httpSetCarMove(CarId, "Stop");
-					if (stop == null) {
-						return;
-					}
-					runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							if (stop.equals("ok")) {
-								Toast.makeText(MyCarActivity.this, "停止成功", Toast.LENGTH_SHORT).show();
-								btn.setBackgroundResource(R.drawable.start);
-								tv.setText("0km/h");
-								Log.i(TAG, "嘿嘿:" + stop);
-								SpUtils.putBoolean(MyCarActivity.this, CAR, false);
-							} else {
-								Toast.makeText(MyCarActivity.this, "停止失败", Toast.LENGTH_SHORT).show();
-							}
+		try {
+			if (aBoolean) {
+				new Thread() {
+					@Override
+					public void run() {
+						super.run();
+						final String stop = HttpRequest.httpSetCarMove(CarId, "Stop");
+						if (stop == null) {
+							return;
 						}
-					});
-				}
-			}.start();
-		} else {
-			new Thread() {
-				@Override
-				public void run() {
-					super.run();
-					final String start = HttpRequest.httpSetCarMove(CarId, "Start");
-					if (start == null) {
-						return;
-					}
-					final int carSpeed = HttpRequest.httpGetCarSpeed(CarId);
-					if (carSpeed == -1) {
-						return;
-					}
-					runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							if (start.equals("ok")) {
-								Toast.makeText(MyCarActivity.this, "启动成功", Toast.LENGTH_SHORT).show();
-								btn.setBackgroundResource(R.drawable.stop);
-								tv.setText(carSpeed + "km/h");
-								Log.i(TAG, "嘿嘿:" + start);
-								SpUtils.putBoolean(MyCarActivity.this, CAR, true);
-							} else {
-								Toast.makeText(MyCarActivity.this, "启动失败", Toast.LENGTH_SHORT).show();
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (stop.equals("ok")) {
+									Toast.makeText(MyCarActivity.this, "停止成功", Toast.LENGTH_SHORT).show();
+									btn.setBackgroundResource(R.drawable.start);
+									tv.setText("0km/h");
+									Log.i(TAG, "嘿嘿:" + stop);
+									SpUtils.putBoolean(MyCarActivity.this, CAR, false);
+								} else {
+									Toast.makeText(MyCarActivity.this, "停止失败", Toast.LENGTH_SHORT).show();
+								}
 							}
+						});
+					}
+				}.start();
+			} else {
+				new Thread() {
+					@Override
+					public void run() {
+						super.run();
+						final String start = HttpRequest.httpSetCarMove(CarId, "Start");
+						if (start == null) {
+							return;
 						}
-					});
-				}
-			}.start();
+						final int carSpeed = HttpRequest.httpGetCarSpeed(CarId);
+						if (carSpeed == -1) {
+							return;
+						}
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (start.equals("ok")) {
+									Toast.makeText(MyCarActivity.this, "启动成功", Toast.LENGTH_SHORT).show();
+									btn.setBackgroundResource(R.drawable.stop);
+									tv.setText(carSpeed + "km/h");
+									Log.i(TAG, "嘿嘿:" + start);
+									SpUtils.putBoolean(MyCarActivity.this, CAR, true);
+								} else {
+									Toast.makeText(MyCarActivity.this, "启动失败", Toast.LENGTH_SHORT).show();
+								}
+							}
+						});
+					}
+				}.start();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.i(TAG, "捕捉到了异常");
 		}
 	}
 }

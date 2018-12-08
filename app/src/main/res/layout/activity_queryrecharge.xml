@@ -42,6 +42,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@id/rl_top"
+		android:layout_marginLeft="-10dp"
+		android:layout_marginTop="-24dp"
 		android:layout_toRightOf="@id/ll_left"
 		android:gravity="center_vertical"
 		android:orientation="vertical">
@@ -74,16 +76,16 @@
 				android:layout_height="39dp"
 				android:layout_marginLeft="20dp"
 				android:layout_toRightOf="@id/tv_carid1"
-				android:autofillHints="1" />
+				android:autofillHints="1"
+				android:background="@android:drawable/spinner_background" />
 
 			<Button
 				android:id="@+id/btn_query"
-				android:layout_width="80dp"
+				android:layout_width="88dp"
 				android:layout_height="39dp"
 				android:layout_marginLeft="20dp"
 				android:layout_toRightOf="@id/spinner"
-				android:background="#eb8329"
-				android:text="查询" />
+				android:background="@drawable/query" />
 		</RelativeLayout>
 
 		<TextView
@@ -114,7 +116,8 @@
 				android:layout_width="80dp"
 				android:layout_height="39dp"
 				android:layout_marginLeft="20dp"
-				android:layout_toRightOf="@id/tv_carid2" />
+				android:layout_toRightOf="@id/tv_carid2"
+				android:background="@android:drawable/spinner_background" />
 
 			<EditText
 				android:id="@+id/et_money"
@@ -130,12 +133,11 @@
 
 			<Button
 				android:id="@+id/btn_query2"
-				android:layout_width="80dp"
+				android:layout_width="88dp"
 				android:layout_height="39dp"
 				android:layout_marginLeft="20dp"
 				android:layout_toRightOf="@id/et_money"
-				android:background="#eb8329"
-				android:text="充值" />
+				android:background="@drawable/query" />
 		</RelativeLayout>
 
 	</LinearLayout>

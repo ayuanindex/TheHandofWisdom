@@ -1,5 +1,6 @@
 package com.ayuan.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -124,6 +125,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 			fileOutputStream.write(bytes);
 			HttpRequest.setIp();
 			Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
+			startActivity(new Intent(getApplicationContext(), HomeActivity.class));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

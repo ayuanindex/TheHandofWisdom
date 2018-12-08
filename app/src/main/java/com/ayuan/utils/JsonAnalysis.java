@@ -39,6 +39,10 @@ public class JsonAnalysis {
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
+			Log.i(TAG, "串数据异常");
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.i(TAG, "捕捉到了异常:由数据混乱导致的空指向异常");
 		}
 		return null;
 	}
@@ -162,7 +166,7 @@ public class JsonAnalysis {
 	 * @return
 	 */
 	public static HashMap<String, Object> GetParkRate(String json) {
-		HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+		HashMap<String, Object> stringObjectHashMap = new HashMap<String, Object>();
 		try {
 			JSONObject jsonObject = getJsonObject(json);
 			String rateType = jsonObject.getString("RateType");
@@ -172,8 +176,12 @@ public class JsonAnalysis {
 			return stringObjectHashMap;
 		} catch (JSONException e) {
 			e.printStackTrace();
+			Log.i(TAG, "串数据导致解析失败");
+			return null;
+		} catch (Exception e) {
+			Log.i(TAG, "串数据导致解析失败");
+			return null;
 		}
-		return null;
 	}
 
 	/**
@@ -221,6 +229,9 @@ public class JsonAnalysis {
 		} catch (JSONException e) {
 			e.printStackTrace();
 			return null;
+		} catch (Exception e) {
+			Log.i(TAG, "已捕捉异常");
+			return null;
 		}
 	}
 
@@ -252,11 +263,13 @@ public class JsonAnalysis {
 	private static JSONObject getJsonObject(String json) {
 		JSONObject object = null;
 		try {
-			object = new JSONObject(json);
-			String serverinfo = object.getString("serverinfo");
-			JSONObject jsonObject = new JSONObject(serverinfo);
-			if (jsonObject != null) {
-				return jsonObject;
+			if (!TextUtils.isEmpty(json)) {
+				object = new JSONObject(json);
+				String serverinfo = object.getString("serverinfo");
+				JSONObject jsonObject = new JSONObject(serverinfo);
+				if (jsonObject != null) {
+					return jsonObject;
+				}
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
