@@ -29,16 +29,17 @@
 				android:src="@drawable/menu" />
 		</RelativeLayout>
 
-		<ImageView
+		<LinearLayout
 			android:id="@+id/iv_bg_day"
-			android:layout_width="wrap_content"
+			android:layout_width="900dp"
 			android:layout_height="wrap_content"
 			android:layout_above="@id/ll_bottom"
 			android:layout_below="@id/rl_top"
 			android:layout_centerHorizontal="true"
 			android:layout_marginTop="30dp"
 			android:layout_marginBottom="5dp"
-			android:src="@drawable/bg_day" />
+			android:background="@drawable/bg_day"
+			android:orientation="vertical" />
 
 		<LinearLayout
 			android:id="@+id/ll_bottom"
