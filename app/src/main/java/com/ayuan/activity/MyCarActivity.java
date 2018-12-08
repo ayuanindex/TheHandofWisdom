@@ -8,13 +8,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ayuan.thehandofwisdom.R;
 import com.ayuan.utils.HttpRequest;
 import com.ayuan.utils.SpUtils;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class MyCarActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -65,40 +65,48 @@ public class MyCarActivity extends AppCompatActivity implements View.OnClickList
 
 	private void initData() {
 		//获取四辆小车的运行状态
-		timer = new Timer();
-		timer.schedule(new TimerTask() {
+		new Thread() {
 			@Override
 			public void run() {
-				carSpeed();
+				super.run();
+				try {
+					final int carSpeed1 = HttpRequest.httpGetCarSpeed(1);
+					Thread.sleep(100);
+					final int carSpeed2 = HttpRequest.httpGetCarSpeed(2);
+					Thread.sleep(100);
+					final int carSpeed3 = HttpRequest.httpGetCarSpeed(3);
+					Thread.sleep(100);
+					final int carSpeed4 = HttpRequest.httpGetCarSpeed(4);
+					carSpeed(carSpeed1, carSpeed2, carSpeed3, carSpeed4);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
-		}, 2000, 3000);
+		}.start();
 	}
 
-	private void carSpeed() {
-		final int carSpeed1 = HttpRequest.httpGetCarSpeed(1);
-		final int carSpeed2 = HttpRequest.httpGetCarSpeed(2);
-		final int carSpeed3 = HttpRequest.httpGetCarSpeed(3);
-		final int carSpeed4 = HttpRequest.httpGetCarSpeed(4);
+	private void carSpeed(final int carSpeed1, final int carSpeed2, final int carSpeed3, final int carSpeed4) {
+
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				if (carSpeed1 > 0) {
-					btn_start1_stop.setText("停止");
+					btn_start1_stop.setBackgroundResource(R.drawable.stop);
 					tv_car1_speed.setText("车速: " + carSpeed1 + "KM/h");
 					SpUtils.putBoolean(MyCarActivity.this, SpUtils.CAR1, true);
 				}
 				if (carSpeed2 > 0) {
-					btn_start2_stop.setText("停止");
+					btn_start2_stop.setBackgroundResource(R.drawable.stop);
 					tv_car2_speed.setText("车速: " + carSpeed2 + "KM/h");
 					SpUtils.putBoolean(MyCarActivity.this, SpUtils.CAR2, true);
 				}
 				if (carSpeed3 > 0) {
-					btn_start3_stop.setText("停止");
+					btn_start3_stop.setBackgroundResource(R.drawable.stop);
 					tv_car3_speed.setText("车速: " + carSpeed3 + "KM/h");
 					SpUtils.putBoolean(MyCarActivity.this, SpUtils.CAR3, true);
 				}
 				if (carSpeed4 > 0) {
-					btn_start4_stop.setText("停止");
+					btn_start4_stop.setBackgroundResource(R.drawable.stop);
 					tv_car4_speed.setText("车速: " + carSpeed4 + "KM/h");
 					SpUtils.putBoolean(MyCarActivity.this, SpUtils.CAR4, true);
 				}
@@ -110,16 +118,16 @@ public class MyCarActivity extends AppCompatActivity implements View.OnClickList
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.btn_start1_stop:
-				myStart_Stop_Car(btn_start1_stop, SpUtils.CAR1, 1);
+				myStart_Stop_Car(btn_start1_stop, tv_car1_speed, SpUtils.CAR1, 1);
 				break;
 			case R.id.btn_start2_stop:
-				myStart_Stop_Car(btn_start2_stop, SpUtils.CAR2, 2);
+				myStart_Stop_Car(btn_start2_stop, tv_car2_speed, SpUtils.CAR2, 2);
 				break;
 			case R.id.btn_start3_stop:
-				myStart_Stop_Car(btn_start3_stop, SpUtils.CAR3, 3);
+				myStart_Stop_Car(btn_start3_stop, tv_car3_speed, SpUtils.CAR3, 3);
 				break;
 			case R.id.btn_start4_stop:
-				myStart_Stop_Car(btn_start4_stop, SpUtils.CAR4, 4);
+				myStart_Stop_Car(btn_start4_stop, tv_car4_speed, SpUtils.CAR4, 4);
 				break;
 			case R.id.btn_recharge:
 				Intent intent = new Intent(getApplicationContext(), QueryRecharge.class);
@@ -134,7 +142,7 @@ public class MyCarActivity extends AppCompatActivity implements View.OnClickList
 		}
 	}
 
-	private void myStart_Stop_Car(final Button btn, final String CAR, final int CarId) {
+	private void myStart_Stop_Car(final Button btn, final TextView tv, final String CAR, final int CarId) {
 		boolean aBoolean = SpUtils.getBoolean(this, CAR, false);
 		if (aBoolean) {
 			new Thread() {
@@ -149,9 +157,13 @@ public class MyCarActivity extends AppCompatActivity implements View.OnClickList
 						@Override
 						public void run() {
 							if (stop.equals("ok")) {
-								btn.setText("启动");
+								Toast.makeText(MyCarActivity.this, "停止成功", Toast.LENGTH_SHORT).show();
+								btn.setBackgroundResource(R.drawable.start);
+								tv.setText("0km/h");
 								Log.i(TAG, "嘿嘿:" + stop);
 								SpUtils.putBoolean(MyCarActivity.this, CAR, false);
+							} else {
+								Toast.makeText(MyCarActivity.this, "停止失败", Toast.LENGTH_SHORT).show();
 							}
 						}
 					});
@@ -166,13 +178,21 @@ public class MyCarActivity extends AppCompatActivity implements View.OnClickList
 					if (start == null) {
 						return;
 					}
+					final int carSpeed = HttpRequest.httpGetCarSpeed(CarId);
+					if (carSpeed == -1) {
+						return;
+					}
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
 							if (start.equals("ok")) {
-								btn.setText("停止");
+								Toast.makeText(MyCarActivity.this, "启动成功", Toast.LENGTH_SHORT).show();
+								btn.setBackgroundResource(R.drawable.stop);
+								tv.setText(carSpeed + "km/h");
 								Log.i(TAG, "嘿嘿:" + start);
 								SpUtils.putBoolean(MyCarActivity.this, CAR, true);
+							} else {
+								Toast.makeText(MyCarActivity.this, "启动失败", Toast.LENGTH_SHORT).show();
 							}
 						}
 					});

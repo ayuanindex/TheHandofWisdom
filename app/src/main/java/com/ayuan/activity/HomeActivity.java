@@ -1,12 +1,12 @@
 package com.ayuan.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -49,6 +49,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 	private RelativeLayout four;
 	private RelativeLayout five;
 	private Button btn_setting;
+	private TimerTask timerTask;
 	/*private ProgressDialog progressDialog;*/
 
 	@Override
@@ -57,11 +58,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 		setContentView(R.layout.activity_home);
 
 		initUI();
-		initData();
+		/*initData();*/
 	}
 
-
-	@SuppressLint({"WrongViewCast", "NewApi"})
 	private void initUI() {
 		iv_menu = (ImageView) findViewById(R.id.iv_menu);
 		tv_pm2_5 = (TextView) findViewById(R.id.tv_pm2_5);/*pm2.5*/
@@ -146,13 +145,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 	private void initData() {
 		/*progressDialog = ProgressDialog.show(this, "正在加载", "请稍后");*/
 		timer = new Timer();
-		new Timer().scheduleAtFixedRate(new TimerTask() {
+		timerTask = new TimerTask() {
 			@Override
 			public void run() {
-				initLeftData();
-				initRightData();
+				try {
+					initLeftData();
+					Thread.sleep(500);
+					initRightData();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				Log.i(TAG, "加载");
 			}
-		}, 3000, 5000);
+		};
+		timer.schedule(timerTask, 2000, 5000);
 	}
 
 	/**
@@ -205,5 +211,24 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 				}
 			});
 		}
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		if (timer != null) {
+			timer.cancel();
+			timer = null;
+		}
+		if (timerTask != null) {
+			timerTask = null;
+			timerTask = null;
+		}
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		initData();
 	}
 }

@@ -15,13 +15,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HttpRequest {
+
 	public static String setIp() {
 		File file = new File("/data/data/com.ayuan.thehandofwisdom/files", "ip.txt");
 		if (!file.exists()) {
@@ -109,16 +108,7 @@ public class HttpRequest {
 	 * 请求小车所有传感器对的值
 	 */
 	public static AllSensors_vo httpGetAllSense() {
-		try {
-			return JsonAnalysis.GetAllSense(httpSetting(GET_ALL_SENSE, null));
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (ProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return JsonAnalysis.GetAllSense(httpSetting(GET_ALL_SENSE, null));
 	}
 
 	/**
@@ -127,16 +117,8 @@ public class HttpRequest {
 	 * @return
 	 */
 	public static HashMap<String, Integer> httpGetLightSenseValve() {
-		try {
-			return JsonAnalysis.GetLightSenseValve(httpSetting(GET_LIGHT_SENSE_VALUE, null));
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (ProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+		HashMap<String, Integer> stringIntegerHashMap = JsonAnalysis.GetLightSenseValve(httpSetting(GET_LIGHT_SENSE_VALUE, null));
+		return stringIntegerHashMap != null ? stringIntegerHashMap : null;
 	}
 
 	/**
@@ -146,20 +128,19 @@ public class HttpRequest {
 	 * @return
 	 */
 	public static int httpGetCarSpeed(int CarId) {
+		int carSpeed = -1;
 		try {
 			JSONObject object = new JSONObject();
 			object.put("CarId", CarId);
-			if (object != null) {
-				int carSpeed = JsonAnalysis.GetCarSpeed(httpSetting(GET_CAR_SPEED, object.toString()));
-				Log.i(TAG, "嘻嘻:" + carSpeed);
-				if (carSpeed >= 0) {
-					return carSpeed;
-				}
+			if (object.toString() != null) {
+				carSpeed = JsonAnalysis.GetCarSpeed(httpSetting(GET_CAR_SPEED, object.toString()));
+				return carSpeed == -1 ? -1 : carSpeed;
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			return -1;
+		} catch (Exception e) {
+			return -1;
 		}
 		return -1;
 	}
@@ -176,13 +157,11 @@ public class HttpRequest {
 			JSONObject object = new JSONObject();
 			object.put("CarId", CarId);
 			object.put("CarAction", CarAction);
-			if (object != null) {
-				return JsonAnalysis.GetResult(httpSetting(SET_CAR_MOVE, object.toString()));
+			if (object.toString() != null) {
+				String s = JsonAnalysis.GetResult(httpSetting(SET_CAR_MOVE, object.toString()));
+				return s.equals("ok") ? "ok" : "failed";
 			}
 		} catch (JSONException e) {
-			e.printStackTrace();
-			return "failed";
-		} catch (IOException e) {
 			e.printStackTrace();
 			return "failed";
 		} catch (Exception e) {
@@ -204,8 +183,6 @@ public class HttpRequest {
 			return JsonAnalysis.GetCarAccountBalance(httpSetting(GET_CAR_ACCOUNT_BALANCE, object.toString()));
 		} catch (JSONException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		return -1;
 	}
@@ -217,8 +194,6 @@ public class HttpRequest {
 			object.put("Money", money);
 			return JsonAnalysis.GetResult(httpSetting(SET_CAR_ACCOUNT_RECHARGE, object.toString()));
 		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -239,8 +214,6 @@ public class HttpRequest {
 			return JsonAnalysis.GetRoadStatus(httpSetting(GET_ROAD_STATUS, object.toString()));
 		} catch (JSONException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		return "查询失败";
 	}
@@ -260,8 +233,6 @@ public class HttpRequest {
 			return JsonAnalysis.GetResult(httpSetting(SET_PARK_RATE, object.toString()));
 		} catch (JSONException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -274,12 +245,7 @@ public class HttpRequest {
 	 * @return 返回一个map集合key:RateType表示费率类型 Money:表示金额
 	 */
 	public static HashMap<String, Object> httpGetParkRate() {
-		try {
-			return JsonAnalysis.GetParkRate(httpSetting(GET_PARK_RATE, null));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return JsonAnalysis.GetParkRate(httpSetting(GET_PARK_RATE, null));
 	}
 
 	/**
@@ -288,13 +254,9 @@ public class HttpRequest {
 	 * @return 返回一个List集合，里面放的是空闲车位的id编号
 	 */
 	public static ArrayList<Integer> httpGetParkFree() {
-		try {
-			ArrayList<Integer> integers = JsonAnalysis.GetParkFree(httpSetting(GET_PARK_FREE, null));
-			if (!integers.isEmpty()) {
-				return integers;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		ArrayList<Integer> integers = JsonAnalysis.GetParkFree(httpSetting(GET_PARK_FREE, null));
+		if (!integers.isEmpty()) {
+			return integers;
 		}
 		return null;
 	}
@@ -308,12 +270,16 @@ public class HttpRequest {
 		try {
 			JSONObject object = new JSONObject();
 			object.put("BusStationId", BusStationId);
-			httpSetting(GET_BUS_STATION_INFO, object.toString());
-			return JsonAnalysis.GetBusStationInfo(httpSetting(GET_BUS_STATION_INFO, object.toString()));
+			if (object.toString() != null) {
+				httpSetting(GET_BUS_STATION_INFO, object.toString());
+				ArrayList<BusStation_vo> busStation_vos = JsonAnalysis.GetBusStationInfo(httpSetting(GET_BUS_STATION_INFO, object.toString()));
+				if (busStation_vos != null && busStation_vos.size() == 2) {
+					return busStation_vos;
+				}
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			return null;
 		}
 		return null;
 	}
@@ -331,8 +297,6 @@ public class HttpRequest {
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		return null;
 	}
@@ -347,39 +311,46 @@ public class HttpRequest {
 	 * @return 返回一个连接
 	 * @throws IOException 抛出异常
 	 */
-	public static String httpSetting(String path, String jsonString) throws IOException {
-		Log.i(TAG, "哈哈:" + path);
-		URL url = new URL(path);
-		HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-		httpURLConnection.setReadTimeout(3000);
-		httpURLConnection.setConnectTimeout(3000);
-		httpURLConnection.setRequestMethod("POST");
-		httpURLConnection.setDoInput(true);
-		httpURLConnection.setDoOutput(true);
-		httpURLConnection.setUseCaches(false);
-		httpURLConnection.setRequestProperty("Connection", "Keep-Alive");
-		httpURLConnection.setRequestProperty("Charset", "UTF-8");
-		httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-		httpURLConnection.setRequestProperty("accept", "application/json");
-		if (jsonString != null) {
-			byte[] bytes = jsonString.getBytes();
-			//设置文件长度
-			httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
-			OutputStream outputStream = httpURLConnection.getOutputStream();
-			outputStream.write(bytes);
-			outputStream.flush();
-			outputStream.close();
-		}
-		int code = httpURLConnection.getResponseCode();
-		if (code == 200) {
-			InputStream inputStream = httpURLConnection.getInputStream();
-			if (inputStream != null) {
-				String json = StreamUtils.StreamToString(inputStream);
-				return json;
-			} else {
-				inputStream.close();
+	public static String httpSetting(String path, String jsonString) {
+		try {
+			Log.i(TAG, "地址:" + path);
+			URL url = new URL(path);
+			HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+			httpURLConnection.setReadTimeout(5000);
+			httpURLConnection.setConnectTimeout(5000);
+			httpURLConnection.setRequestMethod("POST");
+			httpURLConnection.setDoInput(true);
+			httpURLConnection.setDoOutput(true);
+			httpURLConnection.setUseCaches(false);
+			httpURLConnection.setRequestProperty("Connection", "Keep-Alive");
+			httpURLConnection.setRequestProperty("Charset", "UTF-8");
+			httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+			httpURLConnection.setRequestProperty("accept", "application/json");
+			if (jsonString != null) {
+				byte[] bytes = jsonString.getBytes();
+				//设置文件长度
+				httpURLConnection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+				OutputStream outputStream = httpURLConnection.getOutputStream();
+				outputStream.write(bytes);
+				outputStream.flush();
+				outputStream.close();
 			}
+			int code = httpURLConnection.getResponseCode();
+			if (code == 200) {
+				InputStream inputStream = httpURLConnection.getInputStream();
+				if (inputStream != null) {
+					String json = StreamUtils.StreamToString(inputStream);
+					return json;
+				} else {
+					inputStream.close();
+				}
+			} else {
+				return null;
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 }

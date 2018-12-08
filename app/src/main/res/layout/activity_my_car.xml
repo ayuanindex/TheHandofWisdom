@@ -52,8 +52,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="5dp"
-				android:background="#ff902f"
-				android:text="启动"
+				android:background="@drawable/start"
 				android:textColor="#000000" />
 		</LinearLayout>
 
@@ -83,8 +82,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="5dp"
-				android:background="#ff902f"
-				android:text="启动"
+				android:background="@drawable/start"
 				android:textColor="#000000" />
 		</LinearLayout>
 
@@ -114,8 +112,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="5dp"
-				android:background="#ff902f"
-				android:text="启动"
+				android:background="@drawable/start"
 				android:textColor="#000000" />
 		</LinearLayout>
 
@@ -145,8 +142,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="5dp"
-				android:background="#ff902f"
-				android:text="启动"
+				android:background="@drawable/start"
 				android:textColor="#000000" />
 		</LinearLayout>
 	</LinearLayout>

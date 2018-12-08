@@ -91,7 +91,9 @@
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="90dp"
 			android:layout_weight="1"
-			android:hint="计价单位"
+			android:hint="单位"
+			android:maxLength="3"
+			android:singleLine="true"
 			android:textAlignment="center"
 			android:textSize="30sp" />
 

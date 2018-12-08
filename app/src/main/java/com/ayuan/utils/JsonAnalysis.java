@@ -33,7 +33,7 @@ public class JsonAnalysis {
 				int humidity = jsonObject.getInt("humidity");
 				int temperature = jsonObject.getInt("temperature");
 				AllSensors_vo allSensors_vo = new AllSensors_vo(pm2_5, co2, lightIntensity, humidity, temperature);
-				if (allSensors_vo != null) {
+				if (allSensors_vo != null && allSensors_vo.getPm2_5() != null && allSensors_vo.getCo2() != null && allSensors_vo.getHumidity() != null && allSensors_vo.getTemperature() != null) {
 					return allSensors_vo;
 				}
 			}
@@ -76,8 +76,12 @@ public class JsonAnalysis {
 			return carSpeed;
 		} catch (JSONException e) {
 			e.printStackTrace();
+			Log.i(TAG, "json解析出现异常");
+			return -1;
+		} catch (Exception e) {
+			Log.i(TAG, "已经捕获所有异常");
+			return -1;
 		}
-		return -1;
 	}
 
 
@@ -216,8 +220,8 @@ public class JsonAnalysis {
 			return busStation_vo;
 		} catch (JSONException e) {
 			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 
 	/**
@@ -251,9 +255,12 @@ public class JsonAnalysis {
 			object = new JSONObject(json);
 			String serverinfo = object.getString("serverinfo");
 			JSONObject jsonObject = new JSONObject(serverinfo);
-			return jsonObject;
+			if (jsonObject != null) {
+				return jsonObject;
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
+			return null;
 		}
 		return null;
 	}
