@@ -36,6 +36,12 @@
 		<activity
 			android:name="com.ayuan.activity.ParkingSpace"
 			android:launchMode="singleTask"></activity><!--空闲车位-->
+		<activity
+			android:name="com.ayuan.activity.BusEnvironment"
+			android:launchMode="singleTask"></activity><!--站台环境-->
+		<activity
+			android:name="com.ayuan.activity.RoadEnvironment"
+			android:launchMode="singleTask"></activity><!--道路环境-->
 	</application>
 
 </manifest>

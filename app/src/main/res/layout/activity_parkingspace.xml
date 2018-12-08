@@ -1,6 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+	android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+	<RelativeLayout
+		android:id="@+id/rl_top"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<TextView
+			style="@style/TitleStyle"
+			android:gravity="center"
+			android:text="停车查询"
+			android:textColor="#147cc4"
+			android:textSize="22sp" />
+
+		<TextView
+			android:id="@+id/tv_back"
+			style="@style/TitleStyle"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:background="@drawable/returnactivity" />
+	</RelativeLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical"
+		android:paddingLeft="90dp"
+		android:paddingTop="90dp"
+		android:paddingRight="90dp">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="当前费率查询:"
+			android:textSize="30sp" />
+
+		<TextView
+			android:id="@+id/tv_rate"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="90dp"
+			android:layout_weight="1"
+			android:text="XX元/次"
+			android:textAlignment="center"
+			android:textSize="30sp" />
+
+		<Button
+			android:id="@+id/btn_query"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="90dp"
+			android:layout_weight="0.3"
+			android:text="查询" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical"
+		android:paddingLeft="90dp"
+		android:paddingTop="90dp"
+		android:paddingRight="90dp">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="修改停车费率:"
+			android:textSize="30sp" />
+
+		<EditText
+			android:id="@+id/et_parkingrate"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="90dp"
+			android:layout_weight="1"
+			android:hint="费率"
+			android:maxLength="2"
+			android:singleLine="true"
+			android:textAlignment="center"
+			android:textSize="30sp" />
+
+		<EditText
+			android:id="@+id/et_salesunit"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="90dp"
+			android:layout_weight="1"
+			android:hint="计价单位"
+			android:textAlignment="center"
+			android:textSize="30sp" />
+
+		<Button
+			android:id="@+id/btn_setting"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="90dp"
+			android:layout_weight="0.3"
+			android:text="设置" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical"
+		android:paddingLeft="90dp"
+		android:paddingTop="90dp"
+		android:paddingRight="90dp">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="当前车位查询:"
+			android:textSize="30sp" />
+
+		<Button
+			android:id="@+id/btn_query2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="90dp"
+			android:text="查询" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical"
+		android:paddingLeft="90dp"
+		android:paddingTop="90dp"
+		android:paddingRight="90dp">
+
+		<ImageView
+			android:id="@+id/iv_left"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:src="@drawable/bus" />
+
+		<ImageView
+			android:id="@+id/iv_right"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:src="@drawable/bus" />
+	</LinearLayout>
+
+</LinearLayout>

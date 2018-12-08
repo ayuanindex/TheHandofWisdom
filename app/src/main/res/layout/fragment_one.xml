@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<RelativeLayout
+		android:id="@+id/rl_top"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<TextView
+			android:id="@+id/tv_title"
+			style="@style/TitleStyle"
+			android:gravity="center"
+			android:text="1号站台"
+			android:textColor="#147cc4"
+			android:textSize="22sp" />
+
+		<TextView
+			android:id="@+id/tv_back"
+			style="@style/TitleStyle"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:background="@drawable/returnactivity" />
+	</RelativeLayout>
+
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_below="@id/rl_top"
+		android:orientation="vertical">
+
+		<TextView
+			android:id="@+id/tv_station"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="100dp"
+			android:layout_marginTop="50dp"
+			android:text="距1号站台的距离"
+			android:textSize="30dp" />
+
+		<TextView
+			android:id="@+id/bus1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="110dp"
+			android:layout_marginTop="15dp"
+			android:text="加载中...."
+			android:textSize="24sp" />
+
+		<TextView
+			android:id="@+id/bus2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="110dp"
+			android:layout_marginTop="15dp"
+			android:text="加载中...."
+			android:textSize="24sp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="100dp"
+			android:layout_marginTop="20dp"
+			android:text="候车环境"
+			android:textSize="30sp" />
+
+		<TextView
+			android:id="@+id/environment"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="110dp"
+			android:layout_marginTop="15dp"
+			android:text="加载中...."
+			android:textSize="24sp" />
+
+	</LinearLayout>
+
+
+</LinearLayout>

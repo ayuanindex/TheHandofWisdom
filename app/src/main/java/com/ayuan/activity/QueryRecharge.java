@@ -61,6 +61,7 @@ public class QueryRecharge extends Activity implements View.OnClickListener {
 		//给按钮设置点击事件
 		btn_query.setOnClickListener(this);
 		btn_query2.setOnClickListener(this);
+		tv_back.setOnClickListener(this);
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

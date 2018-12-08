@@ -133,9 +133,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 				break;
 			case R.id.four:
 				//公交环境
+				timer.cancel();
+				startActivity(new Intent(this, BusEnvironment.class));
 				break;
 			case R.id.five:
 				//道路环境
+				startActivity(new Intent(this, RoadEnvironment.class));
 				break;
 		}
 	}
