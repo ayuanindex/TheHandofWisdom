@@ -158,6 +158,7 @@ public class RoadEnvironment extends AppCompatActivity implements View.OnClickLi
 		} catch (Exception e) {
 			e.printStackTrace();
 			Log.i(TAG, "捕捉到了异常");
+			initData();
 		}
 	}
 

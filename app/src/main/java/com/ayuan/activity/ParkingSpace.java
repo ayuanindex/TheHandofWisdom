@@ -166,6 +166,7 @@ public class ParkingSpace extends AppCompatActivity implements View.OnClickListe
 									Toast.makeText(ParkingSpace.this, "设置成功", Toast.LENGTH_SHORT).show();
 								}
 							});
+							initData(false);
 						} else {
 							Toast.makeText(ParkingSpace.this, "设置失败", Toast.LENGTH_SHORT).show();
 						}

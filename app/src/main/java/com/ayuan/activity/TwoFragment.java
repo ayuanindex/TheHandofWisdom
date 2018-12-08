@@ -83,7 +83,11 @@ public class TwoFragment extends Fragment {
 							mHandler.sendMessage(message);
 						}
 					} catch (InterruptedException e) {
+						initData();
 						e.printStackTrace();
+					} catch (Exception e) {
+						initData();
+						Log.i(TAG, "捕捉到了异常");//次
 					}
 
 				}
