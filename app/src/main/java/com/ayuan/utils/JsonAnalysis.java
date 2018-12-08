@@ -27,14 +27,16 @@ public class JsonAnalysis {
 			/*String json = StreamUtils.StreamToString(inputStream);*/
 			if (!TextUtils.isEmpty(json)) {
 				JSONObject jsonObject = getJsonObject(json);
-				int pm2_5 = jsonObject.getInt("pm2.5");
-				int co2 = jsonObject.getInt("co2");
-				int lightIntensity = jsonObject.getInt("LightIntensity");
-				int humidity = jsonObject.getInt("humidity");
-				int temperature = jsonObject.getInt("temperature");
-				AllSensors_vo allSensors_vo = new AllSensors_vo(pm2_5, co2, lightIntensity, humidity, temperature);
-				if (allSensors_vo != null && allSensors_vo.getPm2_5() != null && allSensors_vo.getCo2() != null && allSensors_vo.getHumidity() != null && allSensors_vo.getTemperature() != null) {
-					return allSensors_vo;
+				if (jsonObject.has("pm2.5")) {
+					int pm2_5 = jsonObject.getInt("pm2.5");
+					int co2 = jsonObject.getInt("co2");
+					int lightIntensity = jsonObject.getInt("LightIntensity");
+					int humidity = jsonObject.getInt("humidity");
+					int temperature = jsonObject.getInt("temperature");
+					AllSensors_vo allSensors_vo = new AllSensors_vo(pm2_5, co2, lightIntensity, humidity, temperature);
+					if (allSensors_vo != null && allSensors_vo.getPm2_5() != null && allSensors_vo.getCo2() != null && allSensors_vo.getHumidity() != null && allSensors_vo.getTemperature() != null) {
+						return allSensors_vo;
+					}
 				}
 			}
 		} catch (JSONException e) {
@@ -54,18 +56,21 @@ public class JsonAnalysis {
 	 * @return
 	 */
 	public static HashMap<String, Integer> GetLightSenseValve(String json) {
+		HashMap<String, Integer> stringIntegerHashMap = null;
 		try {
 			JSONObject jsonObject = getJsonObject(json);
-			int down = jsonObject.getInt("Down");
-			int up = jsonObject.getInt("Up");
-			HashMap<String, Integer> stringIntegerHashMap = new HashMap<>();
-			stringIntegerHashMap.put("Down", down);
-			stringIntegerHashMap.put("Up", up);
-			return stringIntegerHashMap;
+			if (jsonObject.has("Down")) {
+				int down = jsonObject.getInt("Down");
+				int up = jsonObject.getInt("Up");
+				stringIntegerHashMap = new HashMap<String, Integer>();
+				stringIntegerHashMap.put("Down", down);
+				stringIntegerHashMap.put("Up", up);
+				return stringIntegerHashMap;
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return stringIntegerHashMap;
 	}
 
 	/**
@@ -74,18 +79,22 @@ public class JsonAnalysis {
 	 * @param json
 	 */
 	public static int GetCarSpeed(String json) {
+		int carSpeed = -1;
 		try {
 			JSONObject jsonObject = getJsonObject(json);
-			int carSpeed = jsonObject.getInt("CarSpeed");
-			return carSpeed;
+			if (jsonObject.has("CarSpeed")) {
+				carSpeed = jsonObject.getInt("CarSpeed");
+				return carSpeed;
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 			Log.i(TAG, "json解析出现异常");
-			return -1;
+			return carSpeed;
 		} catch (Exception e) {
 			Log.i(TAG, "已经捕获所有异常");
-			return -1;
+			return carSpeed;
 		}
+		return carSpeed;
 	}
 
 
@@ -96,21 +105,25 @@ public class JsonAnalysis {
 	 * @return 设置(充值)成功返回"ok", 设置(充值)失败返回"fail"
 	 */
 	public static String GetResult(String json) {
+		String result = "failed";
 		Log.i(TAG, "呼呼:" + json);
 		try {
 			JSONObject jsonObject = getJsonObject(json);
-			String result = jsonObject.getString("result");
-			Log.i(TAG, "呼呼:" + result);
-			return result;
+			if (jsonObject.has("result")) {
+				result = jsonObject.getString("result");
+				Log.i(TAG, "呼呼:" + result);
+				return result;
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 			Log.i(TAG, "json数据请求发生串");
-			return "failed";
+			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 			Log.i(TAG, "json数据请求发生串");
-			return "failed";
+			return result;
 		}
+		return result;
 	}
 
 	/**
@@ -119,14 +132,17 @@ public class JsonAnalysis {
 	 * @param json
 	 */
 	public static double GetCarAccountBalance(String json) {
+		double balance = -1;
 		try {
 			JSONObject jsonObject = getJsonObject(json);
-			double balance = jsonObject.getDouble("Balance");
-			return balance;
+			if (jsonObject.has("Balance")) {
+				balance = jsonObject.getDouble("Balance");
+				return balance;
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return balance;
 	}
 
 	/**
@@ -136,27 +152,36 @@ public class JsonAnalysis {
 	 * @return
 	 */
 	public static String GetRoadStatus(String json) {
+		String result = "";
 		try {
 			JSONObject jsonObject = getJsonObject(json);
-			int status = jsonObject.getInt("Status");
-			switch (status) {
-				case 1:
-					return "拥挤状态1";
-				case 2:
-					return "拥挤状态2";
-				case 3:
-					return "拥挤状态3";
-				case 4:
-					return "拥挤状态4";
-				case 5:
-					return "拥挤状态5";
-				default:
-					return "查询失败";
+			if (jsonObject.has("Status")) {
+				int status = jsonObject.getInt("Status");
+				switch (status) {
+					case 1:
+						result = "拥挤状态1";
+						break;
+					case 2:
+						result = "拥挤状态2";
+						break;
+					case 3:
+						result = "拥挤状态3";
+						break;
+					case 4:
+						result = "拥挤状态4";
+						break;
+					case 5:
+						result = "拥挤状态5";
+						break;
+					default:
+						result = "查询失败";
+						break;
+				}
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return "查询失败";
+		return result;
 	}
 
 	/**
@@ -166,22 +191,26 @@ public class JsonAnalysis {
 	 * @return
 	 */
 	public static HashMap<String, Object> GetParkRate(String json) {
-		HashMap<String, Object> stringObjectHashMap = new HashMap<String, Object>();
+		HashMap<String, Object> stringObjectHashMap = null;
 		try {
 			JSONObject jsonObject = getJsonObject(json);
-			String rateType = jsonObject.getString("RateType");
-			double money = jsonObject.getDouble("Money");
-			stringObjectHashMap.put("RateType", rateType);
-			stringObjectHashMap.put("Money", money);
-			return stringObjectHashMap;
+			if (jsonObject.has("RateType") && jsonObject.has("Money")) {
+				stringObjectHashMap = new HashMap<String, Object>();
+				String rateType = jsonObject.getString("RateType");
+				double money = jsonObject.getDouble("Money");
+				stringObjectHashMap.put("RateType", rateType);
+				stringObjectHashMap.put("Money", money);
+				return stringObjectHashMap;
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 			Log.i(TAG, "串数据导致解析失败");
-			return null;
+			return stringObjectHashMap;
 		} catch (Exception e) {
 			Log.i(TAG, "串数据导致解析失败");
-			return null;
+			return stringObjectHashMap;
 		}
+		return stringObjectHashMap;
 	}
 
 	/**
@@ -190,23 +219,27 @@ public class JsonAnalysis {
 	 * @param json
 	 */
 	public static ArrayList<Integer> GetParkFree(String json) {
-		ArrayList<Integer> integers = new ArrayList<Integer>();
+		ArrayList<Integer> integers = null;
+		JSONArray jsonArray = null;
 		try {
 			JSONObject object = new JSONObject(json);
 			String serverinfo = object.getString("serverinfo");
-			JSONArray jsonArray = new JSONArray(serverinfo);
+			jsonArray = new JSONArray(serverinfo);
 			if (jsonArray != null) {
+				integers = new ArrayList<Integer>();
 				for (int i = 0; i < jsonArray.length(); i++) {
 					JSONObject jsonObject = jsonArray.getJSONObject(i);
 					int parkFreeId = jsonObject.getInt("ParkFreeId");
 					integers.add(parkFreeId);
 				}
+				return integers;
 			}
-			return integers;
 		} catch (JSONException e) {
 			e.printStackTrace();
+			return integers;
 		} catch (Exception e) {
 			Log.i(TAG, "有串数据情况");
+			return integers;
 		}
 		return integers;
 	}
@@ -217,26 +250,31 @@ public class JsonAnalysis {
 	 * @param json
 	 */
 	public static ArrayList<BusStation_vo> GetBusStationInfo(String json) {
-		ArrayList<BusStation_vo> busStation_vo = new ArrayList<BusStation_vo>();
+		ArrayList<BusStation_vo> busStation_vo = null;
+		JSONArray jsonArray = null;
 		try {
 			JSONObject object = new JSONObject(json);
 			String serverinfo = object.getString("serverinfo");
-			JSONArray jsonArray = new JSONArray(serverinfo);
-			for (int i = 0; i < jsonArray.length(); i++) {
-				JSONObject jsonObject = jsonArray.getJSONObject(i);
-				int distance = jsonObject.getInt("Distance");
-				int busId = jsonObject.getInt("BusId");
-				BusStation_vo busStation = new BusStation_vo(busId, distance);
-				busStation_vo.add(busStation);
+			jsonArray = new JSONArray(serverinfo);
+			if (jsonArray != null) {
+				busStation_vo = new ArrayList<BusStation_vo>();
+				for (int i = 0; i < jsonArray.length(); i++) {
+					JSONObject jsonObject = jsonArray.getJSONObject(i);
+					int distance = jsonObject.getInt("Distance");
+					int busId = jsonObject.getInt("BusId");
+					BusStation_vo busStation = new BusStation_vo(busId, distance);
+					busStation_vo.add(busStation);
+				}
+				return busStation_vo;
 			}
-			return busStation_vo;
 		} catch (JSONException e) {
 			e.printStackTrace();
-			return null;
+			return busStation_vo;
 		} catch (Exception e) {
 			Log.i(TAG, "已捕捉异常");
-			return null;
+			return busStation_vo;
 		}
+		return busStation_vo;
 	}
 
 	/**
@@ -269,10 +307,12 @@ public class JsonAnalysis {
 		try {
 			if (!TextUtils.isEmpty(json)) {
 				object = new JSONObject(json);
-				String serverinfo = object.getString("serverinfo");
-				JSONObject jsonObject = new JSONObject(serverinfo);
-				if (jsonObject != null) {
-					return jsonObject;
+				if (object.has("serverinfo")) {
+					String serverinfo = object.getString("serverinfo");
+					JSONObject jsonObject = new JSONObject(serverinfo);
+					if (jsonObject != null) {
+						return jsonObject;
+					}
 				}
 			}
 		} catch (JSONException e) {
