@@ -195,14 +195,18 @@ public class JsonAnalysis {
 			JSONObject object = new JSONObject(json);
 			String serverinfo = object.getString("serverinfo");
 			JSONArray jsonArray = new JSONArray(serverinfo);
-			for (int i = 0; i < jsonArray.length(); i++) {
-				JSONObject jsonObject = jsonArray.getJSONObject(i);
-				int parkFreeId = jsonObject.getInt("ParkFreeId");
-				integers.add(parkFreeId);
+			if (jsonArray != null) {
+				for (int i = 0; i < jsonArray.length(); i++) {
+					JSONObject jsonObject = jsonArray.getJSONObject(i);
+					int parkFreeId = jsonObject.getInt("ParkFreeId");
+					integers.add(parkFreeId);
+				}
 			}
 			return integers;
 		} catch (JSONException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			Log.i(TAG, "有串数据情况");
 		}
 		return integers;
 	}

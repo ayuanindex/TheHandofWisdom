@@ -3,6 +3,7 @@ package com.ayuan.activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -48,9 +49,13 @@ public class BusEnvironment extends AppCompatActivity implements View.OnClickLis
 			case R.id.btn_1:
 				addFragment(new OneFragment());
 				tv_title.setText("1号站台");
+				btn_1.setTextColor(Color.WHITE);
+				btn_2.setTextColor(Color.BLACK);
 				break;
 			case R.id.btn_2:
 				tv_title.setText("2号站台");
+				btn_1.setTextColor(Color.BLACK);
+				btn_2.setTextColor(Color.WHITE);
 				addFragment(new TwoFragment());
 				break;
 			case R.id.tv_back:
