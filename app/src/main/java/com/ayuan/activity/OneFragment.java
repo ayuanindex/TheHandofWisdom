@@ -83,9 +83,9 @@ public class OneFragment extends Fragment {
 					initData();
 					e.printStackTrace();
 				} catch (Exception e) {
-					initData();
 					e.printStackTrace();
 					Log.i(TAG, "捕捉到了异常");
+					initData();
 				}
 			}
 		}.start();

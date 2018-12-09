@@ -142,6 +142,10 @@ public class JsonAnalysis {
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
+			return balance;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return balance;
 		}
 		return balance;
 	}

@@ -158,6 +158,7 @@ public class QueryRecharge extends Activity implements View.OnClickListener {
 			e.printStackTrace();
 			Log.i(TAG, "数字格式转换异常");
 		} catch (Exception e) {
+			e.printStackTrace();
 			Log.i(TAG, "捕捉到了异常");
 		}
 	}
@@ -205,5 +206,4 @@ public class QueryRecharge extends Activity implements View.OnClickListener {
 	protected void onDestroy() {
 		super.onDestroy();
 	}
-
 }
