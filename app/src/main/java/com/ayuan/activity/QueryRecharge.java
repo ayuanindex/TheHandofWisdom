@@ -123,7 +123,7 @@ public class QueryRecharge extends Activity implements View.OnClickListener {
 				//确认按钮
 				builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
 					@Override
-					public void onClick(DialogInterface dialog, int which) {
+					public void onClick(final DialogInterface dialog, final int which) {
 						new Thread() {
 							@Override
 							public void run() {
@@ -137,6 +137,9 @@ public class QueryRecharge extends Activity implements View.OnClickListener {
 											et_money.setText("");
 										}
 									});
+								} else {
+									Log.i(TAG, "重新进行充值");
+									onClick(dialog, which);
 								}
 							}
 						}.start();

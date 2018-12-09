@@ -72,7 +72,7 @@ public class RoadEnvironment extends AppCompatActivity implements View.OnClickLi
 					timer = null;
 				}
 				if (timerTask != null) {
-					timerTask = null;
+					timerTask.cancel();
 					timerTask = null;
 				}
 				initData();
@@ -84,7 +84,7 @@ public class RoadEnvironment extends AppCompatActivity implements View.OnClickLi
 					timer = null;
 				}
 				if (timerTask != null) {
-					timerTask = null;
+					timerTask.cancel();
 					timerTask = null;
 				}
 				initData();
@@ -95,82 +95,92 @@ public class RoadEnvironment extends AppCompatActivity implements View.OnClickLi
 		}
 	}
 
-
-	private void initIllumination() {
-		try {
-			final AllSensors_vo allSensors_vo = HttpRequest.httpGetAllSense();
-			runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					if (allSensors_vo != null) {
-						Integer co2 = allSensors_vo.getCo2();
-						Integer humidity = allSensors_vo.getHumidity();
-						Integer temperature = allSensors_vo.getTemperature();
-						Integer pm2_5 = allSensors_vo.getPm2_5();
-						Integer lightIntensity = allSensors_vo.getLightIntensity();
-						tv_result.setText("PM2.5 : " + allSensors_vo.getPm2_5() + " μg/m3, 温度 : " + allSensors_vo.getTemperature() + " ℃, 湿度 : " + allSensors_vo.getHumidity() + " %, CO2: " + allSensors_vo.getCo2());
-						tv_result2.setText("光照强度: " + allSensors_vo.getLightIntensity() + "lux");
-						if (pm2_5 >= 200) {
-							tv_des_pm2_5.setVisibility(View.VISIBLE);
-							vv_video.setVisibility(View.VISIBLE);
-							vv_video.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/raw/alarming"));
-							vv_video.start();
-						} else {
-							if (vv_video.isPlaying()) {
-								vv_video.pause();
-							}
-							vv_video.setVisibility(View.INVISIBLE);
-							tv_des_pm2_5.setVisibility(View.GONE);
-						}
-						if (temperature >= 40) {
-							tv_des_temperature.setVisibility(View.VISIBLE);
-							tv_des_temperature.setText("温度过高,注意防晒");
-						} else if (temperature <= 10) {
-							tv_des_temperature.setVisibility(View.VISIBLE);
-							tv_des_temperature.setText("温度过低，注意保暖");
-						} else {
-							tv_des_temperature.setVisibility(View.GONE);
-							tv_des_temperature.setText("");
-						}
-						if (humidity >= 50) {
-							tv_des_humidity.setVisibility(View.VISIBLE);
-							tv_des_humidity.setText("湿度过大");
-						} else if (humidity <= 0) {
-							tv_des_humidity.setVisibility(View.VISIBLE);
-							tv_des_humidity.setText("天气太干燥了");
-						} else {
-							tv_des_humidity.setText("");
-							tv_des_humidity.setVisibility(View.GONE);
-						}
-						if (lightIntensity > 2500) {
-							illumination.setVisibility(View.VISIBLE);
-							illumination.setText("太刺眼了！");
-						} else if (lightIntensity < 1000) {
-							illumination.setVisibility(View.VISIBLE);
-							illumination.setText("当前环境较暗，请开启照明！");
-						} else {
-							illumination.setVisibility(View.GONE);
-							illumination.setText("");
-						}
-					}
-				}
-			});
-		} catch (Exception e) {
-			e.printStackTrace();
-			Log.i(TAG, "捕捉到了异常");
-			initData();
-		}
-	}
-
 	private void initData() {
 		timer = new Timer();
 		timerTask = new TimerTask() {
 			@Override
 			public void run() {
-				initIllumination();
+				AllSensors_vo allSensors_vo = null;
+				try {
+					allSensors_vo = HttpRequest.httpGetAllSense();
+					final AllSensors_vo finalAllSensors_vo = allSensors_vo;
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							if (finalAllSensors_vo != null) {
+								Integer co2 = finalAllSensors_vo.getCo2();
+								Integer humidity = finalAllSensors_vo.getHumidity();
+								Integer temperature = finalAllSensors_vo.getTemperature();
+								Integer pm2_5 = finalAllSensors_vo.getPm2_5();
+								Integer lightIntensity = finalAllSensors_vo.getLightIntensity();
+								tv_result.setText("PM2.5 : " + finalAllSensors_vo.getPm2_5() + " μg/m3, 温度 : " + finalAllSensors_vo.getTemperature() + " ℃, 湿度 : " + finalAllSensors_vo.getHumidity() + " %, CO2: " + finalAllSensors_vo.getCo2());
+								tv_result2.setText("光照强度: " + finalAllSensors_vo.getLightIntensity() + "lux");
+								if (pm2_5 >= 200) {
+									tv_des_pm2_5.setVisibility(View.VISIBLE);
+									vv_video.setVisibility(View.VISIBLE);
+									vv_video.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/raw/alarming"));
+									vv_video.start();
+								} else {
+									if (vv_video.isPlaying()) {
+										vv_video.pause();
+									}
+									vv_video.setVisibility(View.INVISIBLE);
+									tv_des_pm2_5.setVisibility(View.GONE);
+								}
+								if (temperature >= 40) {
+									tv_des_temperature.setVisibility(View.VISIBLE);
+									tv_des_temperature.setText("温度过高,注意防晒");
+								} else if (temperature <= 10) {
+									tv_des_temperature.setVisibility(View.VISIBLE);
+									tv_des_temperature.setText("温度过低，注意保暖");
+								} else {
+									tv_des_temperature.setVisibility(View.GONE);
+									tv_des_temperature.setText("");
+								}
+								if (humidity >= 50) {
+									tv_des_humidity.setVisibility(View.VISIBLE);
+									tv_des_humidity.setText("湿度过大");
+								} else if (humidity <= 0) {
+									tv_des_humidity.setVisibility(View.VISIBLE);
+									tv_des_humidity.setText("天气太干燥了");
+								} else {
+									tv_des_humidity.setText("");
+									tv_des_humidity.setVisibility(View.GONE);
+								}
+								if (lightIntensity > 2500) {
+									illumination.setVisibility(View.VISIBLE);
+									illumination.setText("太刺眼了！");
+								} else if (lightIntensity < 1000) {
+									illumination.setVisibility(View.VISIBLE);
+									illumination.setText("当前环境较暗，请开启照明！");
+								} else {
+									illumination.setVisibility(View.GONE);
+									illumination.setText("");
+								}
+							}
+						}
+					});
+				} catch (Exception e) {
+					e.printStackTrace();
+					Log.i(TAG, "捕捉到了异常");
+					initData();
+				} finally {
+					if (allSensors_vo == null) {
+						if (timer != null) {
+							timer.cancel();
+							timer = null;
+						}
+						if (timerTask != null) {
+							timerTask.cancel();
+							timerTask = null;
+						}
+						initData();
+						Log.i(TAG, "重新获取");
+					}
+				}
 			}
 		};
-		timer.schedule(timerTask, 500, 10000);
+		timer.schedule(timerTask, 500, 5000);
 	}
 
 	@Override
@@ -189,6 +199,18 @@ public class RoadEnvironment extends AppCompatActivity implements View.OnClickLi
 	@Override
 	protected void onStart() {
 		super.onStart();
-		initData();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (timer != null) {
+			timer.cancel();
+			timer = null;
+		}
+		if (timerTask != null) {
+			timerTask.cancel();
+			timerTask = null;
+		}
 	}
 }

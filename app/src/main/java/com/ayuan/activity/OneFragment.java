@@ -80,12 +80,15 @@ public class OneFragment extends Fragment {
 						mHandler.sendMessage(message);
 					}
 				} catch (InterruptedException e) {
-					initData();
 					e.printStackTrace();
 				} catch (Exception e) {
 					e.printStackTrace();
 					Log.i(TAG, "捕捉到了异常");
-					initData();
+				} finally {
+					if (busStation_vos == null || allSensors_vo == null) {
+						initData();
+						Log.i(TAG, "执行到我了");
+					}
 				}
 			}
 		}.start();

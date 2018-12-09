@@ -70,17 +70,28 @@ public class MyCarActivity extends AppCompatActivity implements View.OnClickList
 				@Override
 				public void run() {
 					super.run();
+					int carSpeed1 = -1;
+					int carSpeed2 = -1;
+					int carSpeed3 = -1;
+					int carSpeed4 = -1;
 					try {
-						final int carSpeed1 = HttpRequest.httpGetCarSpeed(1);
+						carSpeed1 = HttpRequest.httpGetCarSpeed(1);
 						Thread.sleep(100);
-						final int carSpeed2 = HttpRequest.httpGetCarSpeed(2);
+						carSpeed2 = HttpRequest.httpGetCarSpeed(2);
 						Thread.sleep(100);
-						final int carSpeed3 = HttpRequest.httpGetCarSpeed(3);
+						carSpeed3 = HttpRequest.httpGetCarSpeed(3);
 						Thread.sleep(100);
-						final int carSpeed4 = HttpRequest.httpGetCarSpeed(4);
+						carSpeed4 = HttpRequest.httpGetCarSpeed(4);
 						carSpeed(carSpeed1, carSpeed2, carSpeed3, carSpeed4);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						if (carSpeed1 < 0 || carSpeed2 < 0 || carSpeed3 < 0 || carSpeed4 < 0) {
+							Log.i(TAG, "指定到我了");
+							initData();
+						}
 					}
 				}
 			}.start();
@@ -94,7 +105,6 @@ public class MyCarActivity extends AppCompatActivity implements View.OnClickList
 	}
 
 	private void carSpeed(final int carSpeed1, final int carSpeed2, final int carSpeed3, final int carSpeed4) {
-
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
@@ -160,6 +170,8 @@ public class MyCarActivity extends AppCompatActivity implements View.OnClickList
 						super.run();
 						final String stop = HttpRequest.httpSetCarMove(CarId, "Stop");
 						if (stop == null) {
+							Log.i(TAG, "重新发送停止消息");
+							myStart_Stop_Car(btn, tv, CAR, CarId);
 							return;
 						}
 						runOnUiThread(new Runnable() {
@@ -168,11 +180,12 @@ public class MyCarActivity extends AppCompatActivity implements View.OnClickList
 								if (stop.equals("ok")) {
 									Toast.makeText(MyCarActivity.this, "停止成功", Toast.LENGTH_SHORT).show();
 									btn.setBackgroundResource(R.drawable.start);
-									tv.setText("0km/h");
+									tv.setText("停止");
 									Log.i(TAG, "嘿嘿:" + stop);
 									SpUtils.putBoolean(MyCarActivity.this, CAR, false);
 								} else {
-									Toast.makeText(MyCarActivity.this, "停止失败", Toast.LENGTH_SHORT).show();
+									myStart_Stop_Car(btn, tv, CAR, CarId);
+									Log.i(TAG, "重新停止");
 								}
 							}
 						});
@@ -184,11 +197,10 @@ public class MyCarActivity extends AppCompatActivity implements View.OnClickList
 					public void run() {
 						super.run();
 						final String start = HttpRequest.httpSetCarMove(CarId, "Start");
-						if (start == null) {
-							return;
-						}
 						final int carSpeed = HttpRequest.httpGetCarSpeed(CarId);
-						if (carSpeed == -1) {
+						if (start == null || carSpeed == -1) {
+							Log.i(TAG, "重新发送启动消息");
+							myStart_Stop_Car(btn, tv, CAR, CarId);
 							return;
 						}
 						runOnUiThread(new Runnable() {
@@ -201,7 +213,8 @@ public class MyCarActivity extends AppCompatActivity implements View.OnClickList
 									Log.i(TAG, "嘿嘿:" + start);
 									SpUtils.putBoolean(MyCarActivity.this, CAR, true);
 								} else {
-									Toast.makeText(MyCarActivity.this, "启动失败", Toast.LENGTH_SHORT).show();
+									myStart_Stop_Car(btn, tv, CAR, CarId);
+									Log.i(TAG, "重新启动");
 								}
 							}
 						});
@@ -211,6 +224,8 @@ public class MyCarActivity extends AppCompatActivity implements View.OnClickList
 		} catch (Exception e) {
 			e.printStackTrace();
 			Log.i(TAG, "捕捉到了异常");
+		} finally {
+
 		}
 	}
 }

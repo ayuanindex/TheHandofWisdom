@@ -64,20 +64,23 @@ public class ParkingSpace extends AppCompatActivity implements View.OnClickListe
 				@Override
 				public void run() {
 					super.run();
+					ArrayList<Integer> integers = null;
+					HashMap<String, Object> stringObjectHashMap = null;
 					try {
-						HashMap<String, Object> stringObjectHashMap = HttpRequest.httpGetParkRate();
+						stringObjectHashMap = HttpRequest.httpGetParkRate();
 						Thread.sleep(500);
-						final ArrayList<Integer> integers = HttpRequest.httpGetParkFree();
+						integers = HttpRequest.httpGetParkFree();
 						if (stringObjectHashMap != null && integers != null) {
 							final String rateType = (String) stringObjectHashMap.get("RateType");
 							final double money = (double) stringObjectHashMap.get("Money");
+							final ArrayList<Integer> finalIntegers = integers;
 							runOnUiThread(new Runnable() {
 								@Override
 								public void run() {
-									if (!TextUtils.isEmpty(rateType) && money >= 0 && integers.size() >= 2) {
+									if (!TextUtils.isEmpty(rateType) && money >= 0 && finalIntegers.size() >= 2) {
 										tv_rate.setText(money + "元/次");
-										parkFree(integers, 0, iv_left);
-										parkFree(integers, 1, iv_right);
+										parkFree(finalIntegers, 0, iv_left);
+										parkFree(finalIntegers, 1, iv_right);
 										if (b) {
 											Toast.makeText(ParkingSpace.this, "查询成功", Toast.LENGTH_SHORT).show();
 										}
@@ -85,6 +88,9 @@ public class ParkingSpace extends AppCompatActivity implements View.OnClickListe
 								}
 							});
 
+						} else {
+							initData(false);
+							Log.i(TAG, "执行到我了");
 						}
 					} catch (InterruptedException e) {
 						e.printStackTrace();
@@ -147,23 +153,25 @@ public class ParkingSpace extends AppCompatActivity implements View.OnClickListe
 	}
 
 	public void setting() {
-		try {
-			final String trim = et_parkingrate.getText().toString().trim();
-			final String trim1 = et_salesunit.getText().toString().trim();
-			if (TextUtils.isEmpty(trim1)) {
-				Toast.makeText(this, "请输入计价单位", Toast.LENGTH_SHORT).show();
-				return;
-			}
-			if (TextUtils.isEmpty(trim)) {
-				Toast.makeText(this, "请输入金额", Toast.LENGTH_SHORT).show();
-				return;
-			}
-			new Thread() {
-				@Override
-				public void run() {
-					super.run();
+
+		final String trim = et_parkingrate.getText().toString().trim();
+		final String trim1 = et_salesunit.getText().toString().trim();
+		if (TextUtils.isEmpty(trim1)) {
+			Toast.makeText(this, "请输入计价单位", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		if (TextUtils.isEmpty(trim)) {
+			Toast.makeText(this, "请输入金额", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		new Thread() {
+			@Override
+			public void run() {
+				super.run();
+				String s = null;
+				try {
 					if (trim1.equals("次")) {
-						String s = HttpRequest.httpSetParkRate("Count", Double.parseDouble(trim));
+						s = HttpRequest.httpSetParkRate("Count", Double.parseDouble(trim));
 						if (!TextUtils.isEmpty(s) && s.equals("ok")) {
 							runOnUiThread(new Runnable() {
 								@Override
@@ -174,9 +182,11 @@ public class ParkingSpace extends AppCompatActivity implements View.OnClickListe
 							initData(false);
 						} else {
 							Toast.makeText(ParkingSpace.this, "设置失败", Toast.LENGTH_SHORT).show();
+							setting();
+							Log.i(TAG, "执行重新设置");
 						}
 					} else if (trim1.equals("小时")) {
-						String s = HttpRequest.httpSetParkRate("Hour", Double.parseDouble(trim));
+						s = HttpRequest.httpSetParkRate("Hour", Double.parseDouble(trim));
 						if (!TextUtils.isEmpty(s) && s.equals("ok")) {
 							runOnUiThread(new Runnable() {
 								@Override
@@ -188,13 +198,14 @@ public class ParkingSpace extends AppCompatActivity implements View.OnClickListe
 							Toast.makeText(ParkingSpace.this, "设置失败", Toast.LENGTH_SHORT).show();
 						}
 					}
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+					Log.i(TAG, "数字格式转换异常");
+				} catch (Exception e) {
+					Log.i(TAG, "已经捕捉异常");
 				}
-			}.start();
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-			Log.i(TAG, "数字格式转换异常");
-		} catch (Exception e) {
-			Log.i(TAG, "已经捕捉异常");
-		}
+			}
+		}.start();
+
 	}
 }
