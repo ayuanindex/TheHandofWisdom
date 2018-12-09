@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.ayuan.vo.AllSensors_vo;
 import com.ayuan.vo.BusStation_vo;
+import com.ayuan.vo.TrafficLight_vo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -288,18 +289,24 @@ public class HttpRequest {
 	/**
 	 * 查询路口红绿灯状态
 	 */
-	public static ArrayList<Integer> httpGetTrafficLightConfigAction(int TrafficLightId) {
+	public static TrafficLight_vo httpGetTrafficLightConfigAction(int TrafficLightId) {
+		TrafficLight_vo trafficLight_vo = null;
 		try {
 			JSONObject object = new JSONObject();
 			object.put("TrafficLightId", TrafficLightId);
-			ArrayList<Integer> integers = JsonAnalysis.GetTrafficLightConfigAction(httpSetting(GET_TRAFFIC_LIGHT_CONFIG_ACTION, object.toString()));
-			if (integers != null) {
-				return integers;
+			trafficLight_vo = JsonAnalysis.GetTrafficLightConfigAction(httpSetting(GET_TRAFFIC_LIGHT_CONFIG_ACTION, object.toString()));
+			if (trafficLight_vo.getRed() != null && trafficLight_vo.getGreen() != null && trafficLight_vo.getYellow() != null) {
+				return trafficLight_vo;
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
+			return trafficLight_vo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.i(TAG, "捕捉到了异常");
+			return trafficLight_vo;
 		}
-		return null;
+		return trafficLight_vo;
 	}
 
 	//----------------------------------------------------------------------------------------------

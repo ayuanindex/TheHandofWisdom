@@ -47,7 +47,8 @@
 		android:layout_height="40dp"
 		android:layout_below="@id/tv_title"
 		android:layout_toRightOf="@id/tv_left"
-		android:background="@android:drawable/spinner_background"></Spinner>
+		android:background="@android:drawable/spinner_background"
+		android:spinnerMode="dropdown"></Spinner>
 
 	<Button
 		android:id="@+id/btn_query"

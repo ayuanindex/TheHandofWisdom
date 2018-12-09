@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.ayuan.vo.AllSensors_vo;
 import com.ayuan.vo.BusStation_vo;
+import com.ayuan.vo.TrafficLight_vo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -282,23 +283,29 @@ public class JsonAnalysis {
 	 *
 	 * @param json
 	 */
-	public static ArrayList<Integer> GetTrafficLightConfigAction(String json) {
-		ArrayList<Integer> integers = new ArrayList<>();
+	public static TrafficLight_vo GetTrafficLightConfigAction(String json) {
+		TrafficLight_vo trafficLight_vo = null;
 		try {
 			JSONObject jsonObject = getJsonObject(json);
-			int redTime = jsonObject.getInt("RedTime");
-			int greenTime = jsonObject.getInt("GreenTime");
-			int yellowTime = jsonObject.getInt("YellowTime");
-			integers.add(redTime);
-			integers.add(greenTime);
-			integers.add(yellowTime);
-			if (integers.size() == 3) {
-				return integers;
+			if (jsonObject.has("RedTime") && jsonObject.has("GreenTime") && jsonObject.has("YellowTime")) {
+				int redTime = jsonObject.getInt("RedTime");
+				int greenTime = jsonObject.getInt("GreenTime");
+				int yellowTime = jsonObject.getInt("YellowTime");
+				trafficLight_vo = new TrafficLight_vo(redTime, greenTime, yellowTime);
+				if (trafficLight_vo.getRed() != null && trafficLight_vo.getGreen() != null && trafficLight_vo.getYellow() != null) {
+					return trafficLight_vo;
+				}
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
+			Log.i(TAG, "json解析异常");
+			return trafficLight_vo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.i(TAG, "捕捉到了异常");
+			return trafficLight_vo;
 		}
-		return null;
+		return trafficLight_vo;
 	}
 
 	//------------------------------------------------------------------
