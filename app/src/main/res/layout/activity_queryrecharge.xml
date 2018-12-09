@@ -30,7 +30,7 @@
 		android:layout_below="@id/rl_top"
 		android:gravity="center_vertical"
 		android:orientation="vertical"
-		android:padding="200dp">
+		android:paddingLeft="200dp">
 
 		<ImageView
 			android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@id/rl_top"
-		android:layout_marginLeft="-10dp"
+		android:layout_marginLeft="60dp"
 		android:layout_marginTop="-24dp"
 		android:layout_toRightOf="@id/ll_left"
 		android:gravity="center_vertical"

@@ -183,7 +183,7 @@ public class MyRoadConditions extends AppCompatActivity {
 			Integer green = trafficLight_vos.get(i).getGreen();
 			Integer yellow = trafficLight_vos.get(i).getYellow();
 			if (table != null) {
-				table[i][0].setText(road);
+				table[i][0].setText(road + "号路口");
 				table[i][1].setText(red);
 				table[i][2].setText(green);
 				table[i][3].setText(yellow);
